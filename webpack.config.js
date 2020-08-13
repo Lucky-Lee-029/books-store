@@ -32,7 +32,7 @@ module.exports = (env) => {
       <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>RVN Editor</title>
+        <title>Best bookstore</title>
         ${htmlWebpackPlugin.tags.headTags}
       </head>
       

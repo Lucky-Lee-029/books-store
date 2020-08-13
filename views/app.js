@@ -1,6 +1,6 @@
 import { render } from 'react-dom';
-import React from 'react'
-import App from './components/App'
+import routes from './router/routes';
+import './styles/global.sass';
 
 
-render(<App/>, document.getElementById('app'));
+render(routes, document.getElementById('app'));
