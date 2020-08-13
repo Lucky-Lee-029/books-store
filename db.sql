@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 13, 2020 at 10:41 AM
+-- Generation Time: Aug 13, 2020 at 10:55 AM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.2.32
 
@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `address` (
-  `address_id` int(10) DEFAULT NULL,
+  `address_id` int(10) NOT NULL,
   `address_user` int(10) NOT NULL,
   `address_name` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -38,9 +38,9 @@ CREATE TABLE `address` (
 --
 
 INSERT INTO `address` (`address_id`, `address_user`, `address_name`) VALUES
-(NULL, 1, 'Binh Phuoc'),
-(NULL, 2, 'Quang Ngai'),
-(NULL, 3, 'Nha Trang');
+(1, 1, 'Binh Phuoc'),
+(2, 2, 'Quang Ngai'),
+(3, 3, 'Nha Trang');
 
 -- --------------------------------------------------------
 
@@ -113,7 +113,8 @@ CREATE TABLE `orders` (
   `order_id` int(10) NOT NULL,
   `order_idcart` int(10) NOT NULL,
   `order_time` timestamp NOT NULL DEFAULT current_timestamp(),
-  `order_price` int(10) NOT NULL
+  `order_price` int(10) NOT NULL,
+  `order_address` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -149,6 +150,7 @@ INSERT INTO `users` (`user-id`, `user-username`, `user-password`, `user-name`, `
 -- Indexes for table `address`
 --
 ALTER TABLE `address`
+  ADD PRIMARY KEY (`address_id`),
   ADD KEY `address_user` (`address_user`);
 
 --
@@ -191,7 +193,8 @@ ALTER TABLE `coupon`
 --
 ALTER TABLE `orders`
   ADD PRIMARY KEY (`order_id`),
-  ADD KEY `order_cart` (`order_idcart`);
+  ADD KEY `order_cart` (`order_idcart`),
+  ADD KEY `order_address` (`order_address`);
 
 --
 -- Indexes for table `users`
@@ -202,6 +205,12 @@ ALTER TABLE `users`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `address`
+--
+ALTER TABLE `address`
+  MODIFY `address_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `books`
@@ -279,6 +288,7 @@ ALTER TABLE `cart`
 -- Constraints for table `orders`
 --
 ALTER TABLE `orders`
+  ADD CONSTRAINT `order_address` FOREIGN KEY (`order_address`) REFERENCES `address` (`address_id`),
   ADD CONSTRAINT `order_cart` FOREIGN KEY (`order_idcart`) REFERENCES `cart` (`cart_id`);
 COMMIT;
 
