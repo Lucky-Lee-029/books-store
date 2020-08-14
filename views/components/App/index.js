@@ -3,6 +3,7 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import PropTypes from 'prop-types';
 import Header from '../Header/index';
 import Footer from '../Footer/index';
+import NavBar from './NavBar/index';
 import './styles.sass';
 import '../../styles/animation.sass';
 
@@ -11,6 +12,7 @@ class App extends Component {
     return (
       <div className="wrapper">
         <Header />
+        <NavBar/>
         <ReactCSSTransitionGroup
           transitionName="content"
           transitionEnterTimeout={500}

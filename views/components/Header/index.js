@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-
 import './styles.sass';
+
 
 class Header extends Component {
 
@@ -32,11 +32,8 @@ class Header extends Component {
         <Link onlyActiveOnIndex={true} key={2} to="/profile" activeClassName="activeNavLink" className="navLink">
           Profile
         </Link>
-        <Link onlyActiveOnIndex={true} key={3} to="/trades" activeClassName="activeNavLink" className="navLink">
+        <Link onlyActiveOnIndex={true} key={3} to="/cart" activeClassName="activeNavLink" className="navLink">
           Cart
-        </Link>
-        <Link onlyActiveOnIndex={true} key={4} to="/login" activeClassName="activeNavLink" className="navLink">
-          Login
         </Link>
       </div>
     );
@@ -44,7 +41,10 @@ class Header extends Component {
     this.loggedOutMenu = (
       <div className="menu loginMenu">
         <Link onlyActiveOnIndex={true} key={5} activeClassName="activeNavLink" className="navLink">
-          LogIn / Sign Up
+          Sign Up
+        </Link>
+        <Link onlyActiveOnIndex={true} key={4} to="/login" activeClassName="activeNavLink" className="navLink">
+          Login
         </Link>
       </div>
     );
@@ -89,13 +89,13 @@ class Header extends Component {
   render() {
     return (
       <header className="header">
-        <h1>
-          <Link onlyActiveOnIndex={true} to="/" className="logo">
-            BookStore
-          </Link>
-        </h1>
-        {this.state.menuActive ? this.menuButton: ""}
-        {this.state.nav}
+          <h1>
+            <Link onlyActiveOnIndex={true} to="/" className="logo">
+              BookStore
+            </Link>
+          </h1>
+          {this.state.menuActive ? this.menuButton: ""}
+          {this.state.nav}
       </header>
     );
   }
