@@ -75,13 +75,13 @@
   h3.error
     margin: 25vh 0
 
-  .tradesInfoWrapper
+  .ordersInfoWrapper
     flex-direction: row
     justify-content: space-between
-    .tradeReqWrapper, .tradeProposedWrapper
+    .doneWrapper, .pendingWrapper
       flex: 0 1 calc(50% - 1rem)
 
-  .trWrapper, .ptWrapper, .uIWrapper
+  .doneWrapper, .pendingWrapper, .uIWrapper
     .userImg
       margin-top: .2rem
       flex: 0 0 4rem
@@ -93,7 +93,7 @@
       font-size: 1rem
     a
       font-size: 1rem
-  .tradeProposedWrapper
+  .pendingWrapper
     margin-top: 0
 
   .itemPageWrapper
@@ -101,7 +101,7 @@
     .itemInfoWrapper
       margin-left: 2rem
       margin-top: 0
-    .reqTradeBtn
+    .reqorderBtn
       margin: 3rem 0 2rem 0
       border: solid 2px $black
   .uIWrapper
