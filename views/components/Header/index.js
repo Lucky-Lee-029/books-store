@@ -33,7 +33,10 @@ class Header extends Component {
           Profile
         </Link>
         <Link onlyActiveOnIndex={true} key={3} to="/cart" activeClassName="activeNavLink" className="navLink">
-          Cart
+          My Cart
+        </Link>
+        <Link onlyActiveOnIndex={true} key={6} to="/orders" activeClassName="activeNavLink" className="navLink">
+          My Orders
         </Link>
       </div>
     );
