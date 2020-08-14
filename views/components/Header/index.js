@@ -40,7 +40,7 @@ class Header extends Component {
 
     this.loggedOutMenu = (
       <div className="menu loginMenu">
-        <Link onlyActiveOnIndex={true} key={5} activeClassName="activeNavLink" className="navLink">
+        <Link onlyActiveOnIndex={true} key={5} to="/signup" activeClassName="activeNavLink" className="navLink">
           Sign Up
         </Link>
         <Link onlyActiveOnIndex={true} key={4} to="/login" activeClassName="activeNavLink" className="navLink">
@@ -78,7 +78,7 @@ class Header extends Component {
 
   setNav() {
     // check for auth here
-    const True = true;
+    const True = false;
     if (True) {
       this.setState({ nav: this.loggedInMenu });
     } else {
