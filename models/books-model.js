@@ -17,5 +17,5 @@ module.exports={
     },
     searchByName: (name, offset) =>{
         db.load(`SELECT * FROM books WHERE MATCH(book_name) Against("+${name}*" IN BOOLEAN MODE) limit 10 offset 1`)
-    } 
+    }
 }
