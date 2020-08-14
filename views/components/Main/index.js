@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import './styles.sass';
 import Item from '../Item/index';
 import SearchBar from './SearchBar';
-import PRODUCT from '../Data/index'
+import PRODUCT from '../Data/index';
+import NavBar from '../Main/NavBar/index';
 class Homepage extends Component {
   componentDidMount() {
     document.body.scrollTop = 0;
@@ -14,6 +15,7 @@ class Homepage extends Component {
   render() {
     return (
       <>
+      <NavBar/>
       <SearchBar/>
       <main className="main">
         <div className = "items">
