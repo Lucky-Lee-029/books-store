@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import './styles.sass';
 import PRODUCTS from '../Data/index';
 import Item from '../Item/index';
+import StarRatings from 'react-star-ratings';
 
 class ItemPage extends Component {
   product = PRODUCTS.filter((item) => item.id == this.props.match.params.id)[0];
@@ -33,6 +34,16 @@ class ItemPage extends Component {
             {this.product.description}
           </p>
           <p className="seller frm">Category: <span>{this.product.category}</span></p>
+          <p className="product-rating">
+            <StarRatings
+                rating={2.403}
+                starDimension="20px"
+                starSpacing="3px"
+                numberOfStars={5}
+                name='rating'
+                starRatedColor="yellow"
+              />
+          </p>
           <button className="reqTradeBtn normalBtn">Add to cart</button>
         </div>
       </div>
