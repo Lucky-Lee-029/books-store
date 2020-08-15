@@ -7,5 +7,9 @@
         "password": "",
         "database": "bookstore",
         "inseecureAuth": true
+    },
+    "google":{
+        "ip": "838047457964-deokvdm1od9i2i8uh5jrn6f8d7d8fmqs.apps.googleusercontent.com",
+        "secret": "6nYetYxpd99x-L13UHjtgs44"
     }
 }
