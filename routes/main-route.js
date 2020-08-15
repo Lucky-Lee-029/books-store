@@ -3,36 +3,36 @@ const cart=require("../models/cart-model");
 const profile=require("../models/profile-model");
 const account=require("../models/account-model");
 const router = require('express').Router();
-const bodyParser = require('body-parser');
-router.use(
-    bodyParser.urlencoded({
-        extended: true
-    })
-);
-router.get("/api/basicinfor/:id",(res,req)=>{
-    console.log(" im here");
-    console.log(req.params);
-    var id = req.params.id;
-    console.log(i);
-    // res.send(profile.BasicInfor(id));
+var path = require('path');
+var url = require('url'); 
+
+router.get("/api/basicinfor",async(req,res)=>{
+    let id = req.query.id;
+    let data=await profile.BasicInfor(id);
+    res.send(data);
 });
-router.get("/api/ortherinfor",(res,req)=>{
+router.get("/api/ortherinfor",async(req,res)=>{
     let id=req.body.id;
-    res.send(profile.OtherInfor(id));
+    let data=await profile.OtherInfor(id);
+    res.send(data);
 });
 
-router.post("/api/books",(res,req)=>{
+router.post("/api/books",async(req,res)=>{
     let id=req.body.id;
-    res.send(book.allBookInfor());
+    let data = await book.allBookInfor()
+    res.send();
 });
 
-router.post("/api/search",(res,req)=>{
+router.post("/api/search",async (req,res)=>{
     let name=req.body.name;
-    res.send(book.searchByName(name));
+    let data=await book.searchByName(name);
+    res.send(data);
 });
-router.post("/api/auth",(res,req)=>{
+router.post("/api/auth",async(req,res)=>{
+    console.log(req);
     let username=req.body.username;
     let password=req.body.password;
-    res.send(account.checkAcount(username,password));
+    let data=await account.checkAcount(username,password);
+    res.send(data);
 })
 module.exports = router ;

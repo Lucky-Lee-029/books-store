@@ -3,6 +3,7 @@ const db=require('../utils/db');
 module.exports={
     BasicInfor:async(id)=> {
         let data=await db.load("select `user-name` as name from users where `user-id` = "+id);
+        
         return data[0];
     },
     OtherInfor:async(id)=> {
