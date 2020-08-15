@@ -21,7 +21,7 @@ module.exports={
         db.load(`delete books
         where id=${id}`)
     },
-    searchByName: (name, offset) =>{
-        db.load(`SELECT * FROM books WHERE MATCH(book_name) Against("+${name}*" IN BOOLEAN MODE) limit 10 offset 1`)
+    searchByName: (name) =>{
+        db.load(`SELECT * FROM books WHERE MATCH(book_name) Against("+${name}*" IN BOOLEAN MODE) limit 10 offset 0`)
     }
 }
