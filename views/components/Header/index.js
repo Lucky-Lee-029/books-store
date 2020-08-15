@@ -33,14 +33,17 @@ class Header extends Component {
           Profile
         </Link>
         <Link onlyActiveOnIndex={true} key={3} to="/cart" activeClassName="activeNavLink" className="navLink">
-          Cart
+          My Cart
+        </Link>
+        <Link onlyActiveOnIndex={true} key={6} to="/orders" activeClassName="activeNavLink" className="navLink">
+          My Orders
         </Link>
       </div>
     );
 
     this.loggedOutMenu = (
       <div className="menu loginMenu">
-        <Link onlyActiveOnIndex={true} key={5} activeClassName="activeNavLink" className="navLink">
+        <Link onlyActiveOnIndex={true} key={5} to="/signup" activeClassName="activeNavLink" className="navLink">
           Sign Up
         </Link>
         <Link onlyActiveOnIndex={true} key={4} to="/login" activeClassName="activeNavLink" className="navLink">
@@ -78,7 +81,7 @@ class Header extends Component {
 
   setNav() {
     // check for auth here
-    const True = true;
+    const True = false;
     if (True) {
       this.setState({ nav: this.loggedInMenu });
     } else {
