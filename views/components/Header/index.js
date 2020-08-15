@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import './styles.sass';
+import {deleteAuth} from '../../actions/auth/action'
 
 
 class Header extends Component {
   state = {};
   componentWillMount() {
-    window.header = this.props
     this.previousWidth = 0;
     this.menuButton = (
       <button className="menuBtn"
@@ -22,7 +22,6 @@ class Header extends Component {
     );
     this.setMenuState(window.innerWidth);
     this.previousWidth = window.innerWidth;
-
   }
   loggedInMenu = (
     <div className="menu">
@@ -42,9 +41,7 @@ class Header extends Component {
         Logout
       </Link>
     </div>
-
   );
-
   loggedOutMenu = (
     <div className="menu loginMenu">
       <Link onlyActiveOnIndex={true} key={6} to="/signup" activeClassName="activeNavLink" className="navLink">
@@ -61,8 +58,7 @@ class Header extends Component {
     });
   }
   handleLogout = () => {
-    this.setState({logOut: true})
-    localStorage.removeItem('token');
+    this.props.deleteAuth();
   }
   setMenuState(width) {
     if (this.previousWidth !== width) {
@@ -88,7 +84,7 @@ class Header extends Component {
             </Link>
           </h1>
           {this.state.menuActive ? this.menuButton: ""}
-          {this.props.auth || !this.state.logOut ? this.loggedInMenu : this.loggedOutMenu}
+          {this.props.auth  ? this.loggedInMenu : this.loggedOutMenu}
       </header>
     );
   }
@@ -98,5 +94,8 @@ const mapStateToProps = state => {
     auth: state.auth.accessToken
   };
 };
+const mapDispatchToProps = {
+  deleteAuth
+}
 
-export default connect(mapStateToProps)(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

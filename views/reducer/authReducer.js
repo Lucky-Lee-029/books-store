@@ -1,5 +1,5 @@
 import {
-    SET_AUTH
+    SET_AUTH, DELETE_AUTH
   } from '../actions/auth/types';
 import jwt from 'jwt-simple'
  const accessToken = localStorage.getItem('token')
@@ -35,7 +35,12 @@ export default (state = INITIAL_STATE, action) => {
                 role: 0
             }
         }
-
+      case DELETE_AUTH:
+        localStorage.removeItem('token');
+        return {
+          accessToken: null,
+          role: 0
+        }
       default:
         return state;
     }

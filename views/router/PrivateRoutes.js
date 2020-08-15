@@ -1,5 +1,5 @@
 import React, {useContext, useEffect} from 'react';
-import { Route, Redirect} from 'react-router-dom';
+import { Route, Redirect, Switch} from 'react-router-dom';
 import { connect } from 'react-redux';
 import { AuthContext, checkAuth } from '../context/auth';
 
@@ -28,27 +28,28 @@ const ProtectedRoute = ({ component: Component, roleType, ...rest })=> {
 const PrivateRoutes = props => {
   if (props.authData.accessToken) {
     return (
-      <>
-            <Route path="/" component={Main}  exact/>
+      <Switch>
+            <Route path="/" component={Main} exact/>
             <Route path="/item/:id" component={ItemPage} />
             <Route path="/login" component={Login} />
             <Route path="/cart" component={MyItems} />
             <Route path = '/profile' component = {Profile}/>
             <Route path="/orders" component={Orders} />
             {/*<ProtectedRoute exact path="/admin" component={<p>admin</p>} roleType="admin"/>*/}
-            <Route path="/404" component={ErrorPage} />
-            {/*<Route path="*" render={() => <Redirect to="/404" />} />*/}
-      </>
+            <Route path="/404" component={ErrorPage} />         
+            <Redirect to="/404" />
+      </Switch>
     );
   } else {
     return (
-      <>
-        <Route path = '/' component = {Main} exact/>
+      <Switch>
+        <Route path = '/' component = {Main} exact/>  
+        <Route path="/item/:id" component={ItemPage} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={SignUp} />
-        <Route path="/404" component={ErrorPage} />
-        <Route path="*" render={() => <Redirect to="/404" />} />
-      </>
+        <Route path="/404" component={ErrorPage} />         
+        <Redirect to="/404" />
+      </Switch>
     );
   }
 };
