@@ -35,4 +35,12 @@ router.post("/api/auth",async(req,res)=>{
     let data=await account.checkAcount(username,password);
     res.send(data);
 })
+router.post("/api/newacount",async(req,res)=>{
+    let data=await account.creatAcount(req.body.username,req.body.password,req.body.name,req.body.phone,req.body.email,req.body.address);
+    res.send("Heloo world!");
+})
+router.post("/api/editpass",async(req,res)=>{
+    let data=await account.editPass(req.body.id,req.body.password);
+    res.send("Heloo world!");
+})
 module.exports = router ;
