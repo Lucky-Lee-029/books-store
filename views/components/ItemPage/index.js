@@ -4,8 +4,16 @@ import './styles.sass';
 import PRODUCTS from '../Data/index';
 import Item from '../Item/index';
 import StarRatings from 'react-star-ratings';
+import {connect} from 'react-redux';
+import {addItem} from '../../actions/cart/action'
+import { withSwalInstance } from 'sweetalert2-react';
+import swal from 'sweetalert2';
 
+const SweetAlert = withSwalInstance(swal);
 class ItemPage extends Component {
+  state = {
+    show: false
+  }
   product = PRODUCTS.filter((item) => item.id == this.props.match.params.id)[0];
   componentDidMount() {
     document.body.scrollTop = 0;
@@ -44,7 +52,7 @@ class ItemPage extends Component {
                 starRatedColor="yellow"
               />
           </p>
-          <button className="reqTradeBtn normalBtn">Add to cart</button>
+          <button className="reqTradeBtn normalBtn" onClick = {() => {this.props.addItem(this.product); this.setState({show: true});}}>Add to cart</button>
         </div>
       </div>
       <h5>You might also like</h5>
@@ -57,9 +65,19 @@ class ItemPage extends Component {
           }
         })}
       </div>
+      <SweetAlert
+        show={this.state.show}
+        title="Success"
+        text="Thêm sản phẩm vào giỏ thành công"
+        onConfirm={() => this.setState({ show: false })}
+      />
       </>
     );
   }
 }
 
-export default ItemPage;
+const mapDispatchToProps = {
+  addItem
+}
+
+export default connect(null, mapDispatchToProps)(ItemPage);
