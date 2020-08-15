@@ -81,7 +81,7 @@ class Header extends Component {
 
   setNav() {
     // check for auth here
-    const True = false;
+    const True = true;
     if (True) {
       this.setState({ nav: this.loggedInMenu });
     } else {

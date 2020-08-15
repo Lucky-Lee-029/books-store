@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { withRouter } from "react-router-dom";
 import UserItem from '../UserItem/index';
-import PRODUCT from '../Data/index'
+import PRODUCT from '../Data/index';
+import PurchasePanel from './panel';
 import './styles.sass';
 
 class MyItems extends Component {
@@ -23,7 +24,12 @@ class MyItems extends Component {
             + View more item
           </button>
         </div>
-        {PRODUCT.map((data, i) => <UserItem key={i} product = {data}/>)}
+        <div className = "myCart">
+          <div className = "productList">
+            {PRODUCT.map((data, i) => <UserItem key={i} product = {data}/>)}
+          </div>
+          <PurchasePanel/>
+        </div>
       </div>
     );
   }
