@@ -3,16 +3,15 @@ import React, { Component } from 'react';
 import './styles.sass';
 
 class BasicInfo extends Component {
-  state = {
-    name: "Trương Nguyễn Anh Hoàng",
-    imgSrc: ""
-  };
+  product = {
+    name: "Trương Nguyễn Anh Hoàng"
+  }
   render() {
     return(
       <div className="basicInfo">
         <div className="profilePic" />
         <div className="nameWrapper">
-          <h3 className="normal">{this.state.name}</h3>
+          <h3 className="normal">{this.product.name}</h3>
         </div>
       </div>
     );

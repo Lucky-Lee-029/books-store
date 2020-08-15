@@ -6,7 +6,19 @@ class OtherInfo extends Component {
   state = {
     locationEditing: false,
     contactEditing: false,
-    passwordEditing: false
+    passwordEditing: false,
+    location: {
+      local: "Your address",
+      city: "Big City",
+      state: "Big City Boy",
+      landmark: "Old Landmark",
+      country: "Vietnam",
+      code: 65000
+    },
+    contact: {
+      phone: "+84-9999999999",
+      mail: "bigcityboy@gmail.com"
+    }
   };
   getLocationData() {
     if (this.state.locationEditing) {
@@ -17,24 +29,24 @@ class OtherInfo extends Component {
             <input id="localAddress" className="localAddress" type="text" placeholder="Local Address" />
           </div>
           <div className="inputWrapper">
-            <label htmlFor="city">City:</label>
-            <input id="city" className="city" type="text" placeholder="City" />
+            <label htmlFor="city">Tỉnh/thành phố:</label>
+            <input id="city" className="city" type="text" placeholder="Tỉnh/thành phố" />
           </div>
           <div className="inputWrapper">
-            <label htmlFor="state">State:</label>
-            <input id="state" className="state" type="text" placeholder="State" />
+            <label htmlFor="state">Quận/huyện:</label>
+            <input id="state" className="state" type="text" placeholder="Quận/huyện" />
           </div>
           <div className="inputWrapper">
-            <label htmlFor="landmark">Landmark:</label>
-            <input id="landmark" className="landmark" type="text" placeholder="Landmark" />
+            <label htmlFor="landmark">Phường/xã:</label>
+            <input id="landmark" className="landmark" type="text" placeholder="Phường/xã" />
           </div>
           <div className="inputWrapper">
-            <label htmlFor="country">Country:</label>
-            <input id="country" className="country" type="text" placeholder="Country" />
+            <label htmlFor="country">Quốc gia:</label>
+            <input id="country" className="country" type="text" placeholder="Quốc gia" />
           </div>
           <div className="inputWrapper">
-            <label htmlFor="pincode">Pin Code:</label>
-            <input id="pincode" className="pinCode" type="text" placeholder="Pin Code" />
+            <label htmlFor="pincode">Mã bưu điện:</label>
+            <input id="pincode" className="pinCode" type="text" placeholder="Mã bưu điện" />
           </div>
         </div>
       );
@@ -43,27 +55,27 @@ class OtherInfo extends Component {
         <div className="lIWrapper" key="lIWrapperText">
           <div className="inputWrapper">
             <label>Local Address:</label>
-            <p className="inputData">House no 33</p>
+            <p className="inputData">{this.state.location.local}</p>
           </div>
           <div className="inputWrapper">
-            <label>City:</label>
-            <p className="inputData">HCM</p>
+            <label>Tỉnh/thành phố:</label>
+            <p className="inputData">{this.state.location.city}</p>
           </div>
           <div className="inputWrapper">
-            <label>State:</label>
-            <p className="inputData">Q7</p>
+            <label>Quận/huyện:</label>
+            <p className="inputData">{this.state.location.state}</p>
           </div>
           <div className="inputWrapper">
-            <label>Landmark:</label>
-            <p className="inputData">Campus</p>
+            <label>Phường/xã:</label>
+            <p className="inputData">{this.state.location.landmark}</p>
           </div>
           <div className="inputWrapper">
-            <label>Country:</label>
-            <p className="inputData">VNG</p>
+            <label>Quốc gia:</label>
+            <p className="inputData">{this.state.location.country}</p>
           </div>
           <div className="inputWrapper">
-            <label>Pin Code:</label>
-            <p className="inputData">65000</p>
+            <label>Mã bưu điện:</label>
+            <p className="inputData">{this.state.location.code}</p>
           </div>
         </div>
       );
@@ -89,11 +101,11 @@ class OtherInfo extends Component {
         <div className="cIWrapper" key="cIWrapperText">
           <div className="inputWrapper">
             <label>Email:</label>
-            <p className="inputData">tnah.work@gmail.com</p>
+            <p className="inputData">{this.state.contact.mail}</p>
           </div>
           <div className="inputWrapper">
             <label>Phone no:</label>
-            <p className="inputData">+91-9999999999</p>
+            <p className="inputData">{this.state.contact.phone}</p>
           </div>
         </div>
       );
@@ -144,7 +156,7 @@ class OtherInfo extends Component {
         <button 
           className="marB20"
           onClick={() => {
-            this.setState({[target]: true });
+            this.setQuận/huyện({[target]: true });
         }}>
           Edit
         </button>
@@ -155,14 +167,14 @@ class OtherInfo extends Component {
         <button className="marB20"
           key="lSave"
           onClick={() => {
-            this.setState({ [target]: false });
+            this.setQuận/huyện({ [target]: false });
           }}>
           Save
         </button>,
         <button className="marB20 cancelBtn"
           key="lCancel"
           onClick={() => {
-            this.setState({ [target]: false });
+            this.setQuận/huyện({ [target]: false });
           }}>
           Cancel
         </button>
