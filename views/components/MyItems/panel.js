@@ -14,7 +14,7 @@ class PurchasePanel extends Component {
         <div className="lIWrapper" key="lIWrapperText">
           <div className="inputWrapper">
             <label>Tổng tiền:</label>
-            <p className="inputData">50.000 VNĐ</p>
+            <p className="inputData">{Math.round(this.props.total* 100) / 100} $</p>
           </div>
           <button>Thanh toán</button>
         </div>

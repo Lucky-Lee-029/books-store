@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from "react-router-dom";
 import UserItem from '../UserItem/index';
-import PRODUCT from '../Data/index';
+import {connect} from 'react-redux'
 import PurchasePanel from './panel';
 import './styles.sass';
 
@@ -24,15 +24,21 @@ class MyItems extends Component {
             + View more item
           </button>
         </div>
+        {!!this.props.products.length ? 
         <div className = "myCart">
           <div className = "productList">
-            {PRODUCT.map((data, i) => <UserItem key={i} product = {data}/>)}
+            {this.props.products.map((data, i) => <UserItem key={i} product = {data}/>)}
           </div>
-          <PurchasePanel/>
+          <PurchasePanel total = {this.props.products.reduce((total, current) => total + current.price,0)} />
         </div>
+        : <h3>Hiện chưa thêm sản phẩm nào vào giỏ hàng</h3>}
       </div>
     );
   }
 }
-
-export default withRouter(MyItems);
+const mapStateToProps = state => {
+  return {
+    products: state.cart
+  };
+};
+export default connect(mapStateToProps)(withRouter(MyItems));

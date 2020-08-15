@@ -1,14 +1,19 @@
 import React, { Component } from 'react';
 import { withRouter } from "react-router-dom";
-import {Icon} from "react-materialize";
 import './styles.sass';
 import StarRatings from 'react-star-ratings';
+import {connect} from 'react-redux';
+import {addItem} from '../../actions/cart/action';
 
 class Item extends Component {
+  addProduct = (product) => {
+    this.props.addItem(product);
+    this.props.addSuccess();
+  }
   render() {
     return(
       <div className="item-hand">
-        <div className="content" onClick={()=> {
+        <div className="content" onClick={(e)=> {
           this.props.history.push(`/item/${this.props.product.id}`);
         }}>
           <div className="product-img">
@@ -19,16 +24,13 @@ class Item extends Component {
           </div>
           <div className="price-add">
             <h5 id="product-price">${this.props.product.price}</h5>
-            <Icon small onClick={() => this.addProduct(this.props.product)} id="add-icon">add-shopping-cart</Icon>
+            <i className="material-icons small" googl="true" onClick = {(e) => {
+              e.stopPropagation();
+              this.addProduct(this.props.product);
+            }}
+            >add-shopping-cart</i>          
           </div>
           <div className="product-rating">
-            {/* <StarRatings
-              rating={2}
-              starRatedColor="yellow"
-              //changeRating={this.changeRating}
-              numberOfStars={5}
-              name='rating'
-            /> */}
             <StarRatings
               rating={2.403}
               starDimension="20px"
@@ -43,6 +45,8 @@ class Item extends Component {
     );
   }
 }
+const mapDispatchToProps = {
+   addItem
+}
 
-
-export default withRouter(Item);
+export default connect(null, mapDispatchToProps)(withRouter(Item));

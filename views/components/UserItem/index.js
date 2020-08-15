@@ -3,7 +3,8 @@ import { withRouter, Link } from 'react-router-dom';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import './styles.sass';
-
+import {connect} from 'react-redux';
+import {deleteItem} from '../../actions/cart/action'
 class UserItem extends Component {
   deleteModal = () => {
     confirmAlert({
@@ -12,7 +13,7 @@ class UserItem extends Component {
       buttons: [
           {
           label: 'Xoá',
-          onClick: () =>  {}
+          onClick: () =>  {this.props.deleteItem(this.props.product.id)}
           },
           {
           label: 'Mình nhầm'
@@ -45,6 +46,8 @@ class UserItem extends Component {
     );
   }
 }
+const mapDispatchToProps = {
+  deleteItem
+}
 
-export default withRouter(UserItem);
-
+export default connect(null, mapDispatchToProps)(withRouter(UserItem));

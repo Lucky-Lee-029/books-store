@@ -8,6 +8,7 @@ const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 module.exports = (env) => {
   return {
   mode: 'production',
+  devtool: 'source-map',
   entry: {
     main: './views/app.js'
   },
@@ -110,7 +111,7 @@ module.exports = (env) => {
         },
       },
     },
-    minimizer: [new UglifyJsPlugin()],
+    //minimizer: [new UglifyJsPlugin()],
   },
   devServer: {
     contentBase: path.join(__dirname, 'public/dist'),
