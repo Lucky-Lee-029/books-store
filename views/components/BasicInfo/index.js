@@ -3,7 +3,7 @@ import Axios from 'axios'
 import './styles.sass';
 
 class BasicInfo extends Component {
-  product = {
+  state = {
     name: ""
   }
   componentDidMount() {
@@ -14,7 +14,7 @@ class BasicInfo extends Component {
       <div className="basicInfo">
         <div className="profilePic" />
         <div className="nameWrapper">
-          <h3 className="normal">{this.product.name}</h3>
+          <h3 className="normal">{this.state.name}</h3>
         </div>
       </div>
     );

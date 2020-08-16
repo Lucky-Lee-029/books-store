@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import './styles.sass';
-import { map } from 'lodash';
 import Axios from 'axios';
+import { withSwalInstance } from 'sweetalert2-react';
+import swal from 'sweetalert2';
+
+const SweetAlert = withSwalInstance(swal);
 class OtherInfo extends Component {
   state = {
+    show: false,
     locationEditing: false,
     contactEditing: false,
     passwordEditing: false,
@@ -24,11 +28,7 @@ class OtherInfo extends Component {
     Axios.post('/api/otherinfor', {id: this.props.id}).then((res) => this.setState({contact: {phone: res.data.phone, mail: res.data.email}})); 
     Axios.post('/api/getaddress', {id: this.props.id}).then((res) => this.setState({location: res.data}))
   }
-  componentDidUpdate() {
-    console.log(this.state);
-  }
   mergeObject(target, merging) {
-    console.log(merging);
     return Object.keys(target).reduce((dest, key) => {
       if(merging.hasOwnProperty(key)) {
         dest[key] = merging[key];
@@ -47,15 +47,27 @@ class OtherInfo extends Component {
         const changed = Array.prototype.filter.call(nodeList, (node) => node.value);
         const newState = this.mergeObject(this.state[target], changed.reduce((map, node) => {map[node.id] = node.value; return map;},{}));
         this.setState({[target]: newState});
-        const text = Object.keys(newState).reduce((data, key) => {
-          if(data !== "") data = data + ';' + newState[key];
-          else data += newState[key];
-          return data;
-        }, "");
-        Axios.post('/api/editaddress', {id: this.props.id, address: text});
+        if(target == 'location') {
+          const text = Object.keys(newState).reduce((data, key) => {
+            if(data !== "") data = data + ';' + newState[key];
+            else data += newState[key];
+            return data;
+          }, "");
+          Axios.post('/api/editaddress', {id: this.props.id, address: text});
+        }
+        if(target == 'contact') {
+          const id = {id: this.props.id};
+          Axios.post('/api/editcontact', {...id, ...newState});
+        }        
         break;
       case 'PASSWORD':
-        target = "passwordEditing";
+        const old = document.getElementById("old-pass").value;
+        const pass = document.getElementById("new-pass").value;
+        Axios.post('/api/editpass', {id: this.props.id, old_pass: old, new_pass: pass}).then((res) => {
+          if(!res.data) {
+            this.setState({show: true});
+          }
+        });
         break;
     }
   }
@@ -246,6 +258,12 @@ class OtherInfo extends Component {
           </div>
             {this.getSecurityPanel()}
         </div>
+        <SweetAlert
+        show={this.state.show}
+        title="Failed"
+        text="Bạn đã nhập sai mật khẩu hiện tại, vui lòng thử lại"
+        onConfirm={() => this.setState({ show: false })}
+        />
       </div>
     );
   }

@@ -27,6 +27,7 @@ class Orders extends Component {
         <div className="viewCardWrapper">
           <Link to="/cart"><button className="orderBtn allItemsBtn">Check my cart</button></Link>
         </div>
+        {this.props.orders.filter((item) => item.status != 3).length ? 
         <div className="ordersInfoWrapper">
           <div className="doneWrapper">
             <h3 className="unCap">Done Order</h3>
@@ -41,6 +42,7 @@ class Orders extends Component {
             </div>
           </div>
         </div>
+        : <h2>Hiện tại bạn chưa có đơn hàng nào</h2>}
       </div>
     );
   }

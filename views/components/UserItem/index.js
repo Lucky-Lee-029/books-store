@@ -27,7 +27,7 @@ class UserItem extends Component {
       <div className="uIWrapper">
         <div className="upper">
           <div className="userImg">
-            <img src = {this.props.product.img}/>
+            <img src = {this.props.product.image}/>
           </div>
           <div className="itemInfo">
             <h3 className="itemName">

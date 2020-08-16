@@ -10,7 +10,7 @@ import ItemPage from '../components/ItemPage/index';
 import Login from '../components/Join/login';
 import SignUp from '../components/Join/signUp';
 import Orders from '../components/Orders/index';
-import MyItems from '../components/MyItems/index'
+import MyItems from '../components/MyItems/index';
 
 const ProtectedRoute = ({ component: Component, roleType, ...rest })=> { 
     const authorization = useContext(AuthContext);
@@ -30,11 +30,13 @@ const PrivateRoutes = props => {
     return (
       <Switch>
             <Route path="/" component={Main} exact/>
+            <Route path="/category/:id/" component={Main}/>
+            <Route path="/search" component={Main}/>             
             <Route path="/item/:id" component={ItemPage} />
             <Route path="/login" component={Login} />
             <Route path="/cart" component={MyItems} />
             <Route path = '/profile' component = {Profile}/>
-            <Route path="/orders" component={Orders} />
+            <Route path="/orders" component={Orders} />            
             {/*<ProtectedRoute exact path="/admin" component={<p>admin</p>} roleType="admin"/>*/}
             <Route path="/404" component={ErrorPage} />         
             <Redirect to="/404" />
@@ -43,11 +45,14 @@ const PrivateRoutes = props => {
   } else {
     return (
       <Switch>
-        <Route path = '/' component = {Main} exact/>  
+        <Route path = '/' component = {Main} exact/>
+        <Route path="/category/:id/" component={Main}/>
+        <Route path="/search" component={Main}/>  
         <Route path="/item/:id" component={ItemPage} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={SignUp} />
-        <Route path="/404" component={ErrorPage} />         
+        <Route path="/404" component={ErrorPage} />  
+        <Route path="/:id" component={Main}/>       
         <Redirect to="/404" />
       </Switch>
     );

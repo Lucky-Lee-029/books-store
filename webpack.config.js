@@ -13,6 +13,7 @@ module.exports = (env) => {
     main: './views/app.js'
   },
   output: {
+    publicPath: '/',
     path: path.join(__dirname, './public/dist'),
     filename: '[name].[contenthash:8].js'
   },
@@ -31,6 +32,7 @@ module.exports = (env) => {
       <!DOCTYPE html>
       <html>      
       <head>
+        <base href="/">
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Best bookstore</title>
@@ -114,11 +116,11 @@ module.exports = (env) => {
     //minimizer: [new UglifyJsPlugin()],
   },
   devServer: {
+    publicPath:'/',
     port: 8080,
     proxy: {
       "*": {
         "changeOrigin": true,
-        "cookieDomainRewrite": "localhost",
         "target": "http://localhost:3000"
       }
     },

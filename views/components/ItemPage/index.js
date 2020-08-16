@@ -1,31 +1,36 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import './styles.sass';
-import PRODUCTS from '../Data/index';
 import Item from '../Item/index';
 import StarRatings from 'react-star-ratings';
 import {connect} from 'react-redux';
-import {addItem} from '../../actions/cart/action'
+import {addItem} from '../../actions/cart/action';
+import Axios from 'axios'
 import { withSwalInstance } from 'sweetalert2-react';
 import swal from 'sweetalert2';
 
 const SweetAlert = withSwalInstance(swal);
 class ItemPage extends Component {
   state = {
-    show: false
+    show: false,
+    product: {},
+    similar: []
   }
-  product = PRODUCTS.filter((item) => item.id == this.props.match.params.id)[0];
   componentDidMount() {
     document.body.scrollTop = 0;
-    document.querySelector('.menu').classList.remove('open')
-    if(!this.product) this.props.history.push('/error')
+    document.querySelector('.menu').classList.remove('open');
+    Axios.post('/api/singlebook', {id: this.props.match.params.id}).then((res) => {
+      Axios.post('/api/bookincat', {id: res.data[0].id}).then((res => {this.setState({similar: res.data})}));
+      this.setState({product: res.data[0]});
+    });    
+    if(!this.state.product) this.props.history.push('/error')
   }
   render() {
     return (
       <>
       <div className="itemPageWrapper">
         <div className="itemImgWrapper">
-          <img src = {this.product.img}/>
+          <img src = {this.state.product.image}/>
         </div>
         <div className="itemInfoWrapper">
           <Link className="backLink" to="/">
@@ -36,12 +41,12 @@ class ItemPage extends Component {
               </svg>
             </span>All Items
           </Link>
-          <h3 className="itemName">{this.product.name}</h3>
-          <p className="itemCost frm">{this.product.price}</p>
+          <h3 className="itemName">{this.state.product.name}</h3>
+          <p className="itemCost frm">{this.state.product.price}</p>
           <p className="description">
-            {this.product.description}
+            {this.state.product.description}
           </p>
-          <p className="seller frm">Category: <span>{this.product.category}</span></p>
+          <p className="seller frm">Category: <span>{this.state.product.category}</span></p>
           <p className="product-rating">
             <StarRatings
                 rating={2.403}
@@ -52,18 +57,12 @@ class ItemPage extends Component {
                 starRatedColor="yellow"
               />
           </p>
-          <button className="reqTradeBtn normalBtn" onClick = {() => {this.props.addItem(this.product); this.setState({show: true});}}>Add to cart</button>
+          <button className="reqTradeBtn normalBtn" onClick = {() => {this.props.addItem(this.state.product); this.setState({show: true});}}>Add to cart</button>
         </div>
       </div>
       <h5>You might also like</h5>
       <div className="similar-products">
-        {PRODUCTS.map((product) => {
-          if (
-            product.category === this.product.category
-            && product.name !== this.product.name) {
-            return <Item key = {product.id} product = {product} />
-          }
-        })}
+        {this.state.similar.map((product) =>  <Item key = {product.id} product = {product} />)}
       </div>
       <SweetAlert
         show={this.state.show}

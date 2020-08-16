@@ -1,7 +1,9 @@
 import {
     SET_AUTH, DELETE_AUTH
   } from '../actions/auth/types';
-import jwt from 'jwt-simple'
+import jwt from 'jwt-simple';
+import Axios from 'axios';
+import store from '../store/store'
  const accessToken = localStorage.getItem('token')
    ? JSON.parse(localStorage.getItem('token')).accessToken
    : false;
@@ -26,7 +28,13 @@ export default (state = INITIAL_STATE, action) => {
         const data = jwt.decode(action.payload,'xxx');
         if( data.role!= 0) {
             let token = { accessToken: action.payload};
-            localStorage.setItem('token', JSON.stringify(token))
+            localStorage.setItem('token', JSON.stringify(token));
+            Axios.post('/api/allorder', {id: data.id}).then((res) => {
+              store.dispatch({
+                type: 'INIT_ORDERS',
+                payload: res.data
+              })
+            });
             return {
                 accessToken: action.payload,
                 id: data.id,

@@ -14,7 +14,7 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <ul>
-        {categories.map((data) => <li><NavLink activeClassName="selected" className="nav-link" to={`/${data.id}`}>{data.name}</NavLink></li>)}
+        {categories.map((data) => <li><NavLink activeClassName="selected" className="nav-link" to={`/category/${data.id}`}>{data.name}</NavLink></li>)}
       </ul>
     </nav>
   )

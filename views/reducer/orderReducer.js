@@ -12,109 +12,16 @@ import {
     CHANGE_STATUS,
   } from '../actions/order/types';
 
-  const INITIAL_STATE = [
-    {
-      id: 9772061375,
-      total: '$88',
-      time_start: '1597545054',
-      time_end: '1597548539655',
-      status: 0,
-      books: []
-    },
-    {
-      id: 9772061376,
-      total: '$88',
-      time_start: '1597545054',
-      time_end: '1597548539655',
-      status: 0,
-      books: []
-    },
-    {
-      id: 9772061377,
-      total: '$88',
-      time_start: '1597545054',
-      time_end: '1597548539655',
-      status: 0,
-      books: []
-    },
-    {
-      id: 9772061378,
-      total: '$88',
-      time_start: '1597545054',
-      time_end: '1597548539655',
-      status: 0,
-      books: []
-    },
-    {
-      id: 9772061379,
-      total: '$88',
-      time_start: '1597545054',
-      time_end: '1597548539655',
-      status: 0,
-      books: []
-    },
-    {
-      id: 9772061380,
-      total: '$88',
-      time_start: '1597545054',
-      time_end: '1597548539655',
-      status: 0,
-      books: []
-    },
-    {
-      id: 9772061381,
-      total: '$88',
-      time_start: '1597545054',
-      time_end: '1597548539655',
-      status: 1,
-      books: []
-    },
-    {
-      id: 9772061382,
-      total: '$88',
-      time_start: '1597545054',
-      time_end: '1597548539655',
-      status: 1,
-      books: []
-    },
-    {
-      id: 9772061383,
-      total: '$88',
-      time_start: '1597545054',
-      time_end: '1597548539655',
-      status: 1,
-      books: []
-    },
-    {
-      id: 9772061384,
-      total: '$88',
-      time_start: '1597545054',
-      time_end: '1597548539655',
-      status: 1,
-      books: []
-    },
-    {
-      id: 9772061385,
-      total: '$88',
-      time_start: '1597545054',
-      time_end: '1597548539655',
-      status: 1,
-      books: []
-    },
-    {
-      id: 9772061386,
-      total: '$88',
-      time_start: '1597545054',
-      time_end: '1597548539655',
-      status: 1,
-      books: []
-    },
-  ]
+
+
+  const INITIAL_STATE = [];
   
   export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
+      case 'INIT_ORDERS': {
+          return action.payload;
+      }  
       case ADD_ORDER:
-            console.log(action.payload)
             return [ ...state, action.payload]; 
       case REMOVE_ORDER:
           const result = state.filter((item) => {
@@ -122,7 +29,12 @@ import {
           });
           return result;
       case CHANGE_STATUS:
-        return INITIAL_STATE;
+          return state.map((item) => {
+              if(item.id === action.payload.id) item.status = action.payload.status; 
+              if(action.payload.status === 2) item.time_end = Date.now();
+              console.log(item)
+              return item;
+          });
       default:
         return state;
     }
