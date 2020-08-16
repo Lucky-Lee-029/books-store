@@ -13,10 +13,19 @@ module.exports={
     },
     singleBookinfor:(id)=>db.load(`select * from books`)
     ,
-    bookEdit: (id, name, cat, author, price)=>{
-        return db.load(`update books
-        set book_name='${name}', book_cat='${cat}',book_author='${author}', book_price='${price}'
-        where book_id=${id}`)
+    bookEdit: async(id, name, cat, author, price)=>{
+        if(name){
+            await db.load(`update books set book_name='${name}' where book_id=${id}`);
+        }
+        if(cat){
+            await db.load(`update books set book_cat=${cat} where book_id=${id}`);
+        }
+        if(author){
+            await db.load(`update books set book_author='${author}' where book_id=${id}`);
+        }
+        if(price){
+            await db.load(`update books set book_price=${price} where book_id=${id}`);
+        }
     },
     bookDelete:(id)=>{
         db.load(`delete books

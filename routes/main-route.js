@@ -16,6 +16,14 @@ router.post("/api/search",async (req,res)=>{
     let data=await book.searchByName(name);
     res.send(data);
 });
+router.post("/api/editbook",async (req,res)=>{
+    let id=req.body.bookId;
+    let name=req.body.name;
+    let cat=req.body.catId;
+    let author=req.body.author;
+    let price=req.body.price;
+    await book.bookEdit(id,name,cat,author,price);
+});
 // cat
 router.get("/api/allcat", async(req,res)=>{
     console.log("here");
@@ -27,7 +35,19 @@ router.post("/api/bookincat", async(req,res)=>{
     let data=await cat.bookInCat(id);
     res.send(data);
 })
-
+router.post("/api/addcat", async(req,res)=>{
+    let name=req.body.catName;
+    await cat.addCat(name);
+})
+router.post("/api/editcat", async(req,res)=>{
+    let name=req.body.catName;
+    let id=req.body.catId;
+    await cat.editCat(id,name);
+})
+router.post("/api/delcat", async(req,res)=>{
+    let id=req.body.catId;
+    await cat.deleteCat(id);
+})
 // infor
 router.post("/api/basicinfor",async(req,res)=>{
     let id = req.body.id;

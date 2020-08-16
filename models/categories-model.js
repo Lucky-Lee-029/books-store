@@ -15,5 +15,15 @@ module.exports={
             data[item].longDescription="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque nihil dicta temporibus incidunt fugit culpa similique ipsum sit? Hic ad beatae quidem repudiandae dignissimos tenetur consequuntur, ullam, accusantium earum a";
         }
         return data;
-    }
+    },
+    addCat: async(name)=>{
+        db.load(`INSERT INTO categories (cat_name) VALUES ('${name}') `);
+    },
+    editCat: async(id, name)=>{
+        db.load(`UPDATE categories SET cat_name = '${name}' WHERE cat_id =${id}`);
+    },
+    deleteCat: async(id)=>{
+        db.load(`DELETE FROM categories WHERE cat_id =${id}`);
+    },
+    
 }

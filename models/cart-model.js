@@ -17,7 +17,7 @@ module.exports={
         console.log(`insert into orders (order_id, order_user,order_time,order_receive,order_price,order_address,order_status)
         values (${orderId}, ${id}, "${time}","${receive}",${price},${id},1)`);
         await db.load(`insert into orders (order_id, order_user,order_time,order_receive,order_price,order_address,order_status)
-        values (${orderId}, ${id}, "${time}","${receive}",${price},${id},1)`);
+        values (${orderId}, ${id}, "${time}","${receive}",${price},${id},0)`);
         let i;
         for(i in listbook){
             await db.load(`insert into book_cart (book_id,order_id) values (${listbook[i]},${orderId})`);
