@@ -21,7 +21,13 @@ module.exports={
         db.load(`delete books
         where id=${id}`)
     },
-    searchByName: (name) =>{
-        db.load(`SELECT * FROM books WHERE MATCH(book_name) Against("+${name}*" IN BOOLEAN MODE) limit 10 offset 0`)
+    searchByName: async(name) =>{
+        let data=await db.load(`SELECT * FROM books WHERE MATCH(book_name) Against("+${name}*" IN BOOLEAN MODE) limit 10 offset 0`)
+        var item;
+        for(item in data){
+            data[item].image="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c";
+            data[item].description="Nothing";
+        }
+        return data;
     }
 }

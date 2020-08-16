@@ -6,6 +6,7 @@ const book=require("./models/books-model");
 const pro=require("./models/profile-model");
 const account=require("./models/account-model");
 const order=require("./models/cart-model");
+const cat=require("./models/categories-model");
 const multer=require('multer');
 app.use(function(err, req, res, next) {
     console.log(err);
@@ -22,6 +23,5 @@ require('./middlewares/route.mdw')(app);
 
 //Listen at PORT
 app.listen(PORT, async() => {
-    await order.allOrder(1);
     console.log(`Listening Port: ${PORT}`);
 });

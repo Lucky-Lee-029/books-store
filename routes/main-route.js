@@ -2,10 +2,33 @@ const book=require("../models/books-model");
 const cart=require("../models/cart-model");
 const profile=require("../models/profile-model");
 const account=require("../models/account-model");
+const cat=require("../models/categories-model");
 const router = require('express').Router();
 var path = require('path');
 var url = require('url'); 
+// books 
+router.get("/api/books",async(req,res)=>{
+    let data = await book.allBookInfor()
+    res.send(data);
+});
+router.post("/api/search",async (req,res)=>{
+    let name=req.body.name;
+    let data=await book.searchByName(name);
+    res.send(data);
+});
+// cat
+router.get("/api/allcat", async(req,res)=>{
+    console.log("here");
+    let data=await cat.allCat();
+    res.send(data);
+})
+router.post("/api/bookincat", async(req,res)=>{
+    let id=req.body.id;
+    let data=await cat.bookInCat(id);
+    res.send(data);
+})
 
+// infor
 router.get("/api/basicinfor",async(req,res)=>{
     let id = req.query.id;
     let data=await profile.BasicInfor(id);
@@ -17,17 +40,7 @@ router.get("/api/ortherinfor",async(req,res)=>{
     res.send(data);
 });
 
-router.post("/api/books",async(req,res)=>{
-    let id=req.body.id;
-    let data = await book.allBookInfor()
-    res.send(data);
-});
-
-router.post("/api/search",async (req,res)=>{
-    let name=req.body.name;
-    let data=await book.searchByName(name);
-    res.send(data);
-});
+//acount
 router.post("/api/auth",async(req,res)=>{
     console.log(req);
     let username=req.body.username;
@@ -48,11 +61,15 @@ router.post("/api/getaddress", async(req,res)=>{
     let data=account.address(id);
     res.send(data);
 })
+
+//order
 router.post("/api/addorder", async(req,res)=>{
     await cart.addToOrder(req.body.id,req.body.idUser,req.body.time_start,req.body.books,req.body.total);
 })
-router.post("/api/addorder", async(req,res)=>{
-    let data =await cart.allOrder();
+router.post("/api/allorder", async(req,res)=>{
+    let id=req.body.id;
+    let data =await cart.allOrder(id);
     res.send(data);
 })
+
 module.exports = router ;
