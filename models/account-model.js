@@ -28,6 +28,8 @@ module.exports={
         return checked;
     },
     createAccount:async(username, password, name, phone, email)=>{
+        if(!username || !password || !name || !phone || !email)
+        return;
         await db.load("insert into users (`user-username`, `user-password`,`user-name`,`user-phone`,`user-email`) values"
         + `("${username}","${password}","${name}","${phone}","${email}")`);
         let id=await db.load("select `user-id` as id from users where `user-username`="+`"${username}"`);

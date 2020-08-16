@@ -55,7 +55,7 @@ router.post("/api/editpass",async(req,res)=>{
 })
 router.post("/api/getaddress", async(req,res)=>{
     let id=req.body.id;
-    let data=account.address(id);
+    let data=await account.address(id);
     res.send(data);
 })
 router.post("/api/editaddress",async(req,res)=>{
