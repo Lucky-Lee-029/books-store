@@ -34,7 +34,7 @@ router.post("/api/basicinfor",async(req,res)=>{
     let data=await profile.BasicInfor(id);
     res.send(data);
 });
-router.post("/api/ortherinfor",async(req,res)=>{
+router.post("/api/otherinfor",async(req,res)=>{
     let id=req.body.id;
     let data=await profile.OtherInfor(id);
     res.send(data);
@@ -47,13 +47,12 @@ router.post("/api/auth",async(req,res)=>{
     let data=await account.checkAcount(username,password);
     res.send(data);
 })
-router.post("/api/newacount",async(req,res)=>{
-    let data=await account.creatAcount(req.body.username,req.body.password,req.body.name,req.body.phone,req.body.email);
+router.post("/api/newaccount",async(req,res)=>{
+    let data=await account.createAccount(req.body.username,req.body.password,req.body.name,req.body.phone,req.body.email);
     res.send("Heloo world!");
 })
 router.post("/api/editpass",async(req,res)=>{
     let data=await account.editPass(req.body.id,req.body.password);
-    res.send("Heloo world!");
 })
 router.post("/api/getaddress", async(req,res)=>{
     let id=req.body.id;

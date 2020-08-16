@@ -23,10 +23,11 @@ module.exports={
                 }
             }
         }
+        if(data.role==0) return null;
         let checked=jwt.encode(data,secret);
         return checked;
     },
-    creatAcount:async(username, password, name, phone, email)=>{
+    createAccount:async(username, password, name, phone, email)=>{
         await db.load("insert into users (`user-username`, `user-password`,`user-name`,`user-phone`,`user-email`) values"
         + `("${username}","${password}","${name}","${phone}","${email}")`);
         let id=await db.load("select `user-id` as id from users where `user-username`="+`"${username}"`);
