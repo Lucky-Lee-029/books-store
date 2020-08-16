@@ -37,5 +37,8 @@ module.exports={
             }
         }
         return order;
+    },
+    editStatus:async (id,status)=>{
+        await db.load(`update orders set order_status=${status} where order_id=${id}`);
     }
 }

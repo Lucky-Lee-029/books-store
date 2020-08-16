@@ -11,7 +11,8 @@ module.exports={
         var item;
         for(item in data){
             data[item].image="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c";
-            data[item].description="Nothing";
+            data[item].description="Lorem ipsum dolor sit amet.";
+            data[item].longDescription="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque nihil dicta temporibus incidunt fugit culpa similique ipsum sit? Hic ad beatae quidem repudiandae dignissimos tenetur consequuntur, ullam, accusantium earum a";
         }
         return data;
     }
