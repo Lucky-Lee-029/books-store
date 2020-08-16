@@ -24,7 +24,7 @@ module.exports={
     allOrder: async (id)=>{
         let order=await db.load(`select order_id as id, order_price as total, order_time as time_start, order_receive as time_end, order_status as status from orders where order_user=${id}`);
         if(!order[0]){
-            return null;
+            return [];
         }
         let i;
         for(i in order){

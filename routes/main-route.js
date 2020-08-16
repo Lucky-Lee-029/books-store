@@ -63,6 +63,19 @@ router.post("/api/editaddress",async(req,res)=>{
     let address=req.body.address;
     await account.editadress(id,address);
 })
+router.post("/api/editcontact",async(req,res)=>{
+    let id=req.body.id;
+    let email=req.body.email;
+    let phone=req.body.phone;
+    console.log(email);
+    console.log(phone);
+    if(email){
+        await account.editEmail(id,email);
+    }
+    if(phone){
+        await account.editPhone(id,phone);
+    }
+})
 //order
 router.post("/api/addorder", async(req,res)=>{
     await cart.addToOrder(req.body.id,req.body.idUser,req.body.time_start,req.body.books,req.body.total);
@@ -72,5 +85,9 @@ router.post("/api/allorder", async(req,res)=>{
     let data =await cart.allOrder(id);
     res.send(data);
 })
-
+router.post("/api/changestatus", async(req,res)=>{
+    let id=req.body.orderId;
+    let status=req.body.status;
+    await cart.editStatus(id,status);
+})
 module.exports = router ;

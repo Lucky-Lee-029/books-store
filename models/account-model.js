@@ -55,5 +55,13 @@ module.exports={
         }
         console.log(data);
         return data;
+    },
+    editEmail: async(id, email)=>{
+        await db.load("update users set `user-email`="+`" ${email} "`+" where `user-id`="+`${id}`);
+        return;
+    },
+    editPhone: async(id, phone)=>{
+        await db.load("update users set `user-phone`="+`" ${phone} "`+" where `user-id`="+`${id}`);
+        return;
     }
 }
