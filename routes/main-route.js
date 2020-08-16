@@ -42,7 +42,6 @@ router.post("/api/ortherinfor",async(req,res)=>{
 
 //acount
 router.post("/api/auth",async(req,res)=>{
-    console.log(req);
     let username=req.body.username;
     let password=req.body.password;
     let data=await account.checkAcount(username,password);
