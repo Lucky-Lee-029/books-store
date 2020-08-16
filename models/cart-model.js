@@ -10,10 +10,12 @@ module.exports={
         where c.cart_id=${id} and c.cartid=bc.cart_id and bc.book_id=b.book_id`);
         return data;
     },
-    addToOrder:async(id, order, time, listbook, price)=>{
+    addToOrder:async(order,id, time, listbook, price)=>{
         let unix_timestamp = time;
         let receive=Number(time)+86400*3;
         let orderId=Number(order);
+        console.log(`insert into orders (order_id, order_user,order_time,order_receive,order_price,order_address,order_status)
+        values (${orderId}, ${id}, "${time}","${receive}",${price},${id},1)`);
         await db.load(`insert into orders (order_id, order_user,order_time,order_receive,order_price,order_address,order_status)
         values (${orderId}, ${id}, "${time}","${receive}",${price},${id},1)`);
         let i;
