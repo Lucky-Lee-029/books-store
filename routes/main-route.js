@@ -49,7 +49,6 @@ router.post("/api/auth",async(req,res)=>{
 })
 router.post("/api/newaccount",async(req,res)=>{
     let data=await account.createAccount(req.body.username,req.body.password,req.body.name,req.body.phone,req.body.email);
-    res.send("Heloo world!");
 })
 router.post("/api/editpass",async(req,res)=>{
     let data=await account.editPass(req.body.id,req.body.password);
@@ -59,7 +58,11 @@ router.post("/api/getaddress", async(req,res)=>{
     let data=account.address(id);
     res.send(data);
 })
-
+router.post("/api/editaddress",async(req,res)=>{
+    let id=req.body.id;
+    let address=req.body.address;
+    await account.editadress(id,address);
+})
 //order
 router.post("/api/addorder", async(req,res)=>{
     await cart.addToOrder(req.body.id,req.body.idUser,req.body.time_start,req.body.books,req.body.total);
