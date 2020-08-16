@@ -21,6 +21,6 @@ require('./middlewares/route.mdw')(app);
 
 //Listen at PORT
 app.listen(PORT, async() => {
-
+    await account.address(1);
     console.log(`Listening Port: ${PORT}`);
 });

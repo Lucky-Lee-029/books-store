@@ -20,7 +20,7 @@ router.get("/api/ortherinfor",async(req,res)=>{
 router.post("/api/books",async(req,res)=>{
     let id=req.body.id;
     let data = await book.allBookInfor()
-    res.send();
+    res.send(data);
 });
 
 router.post("/api/search",async (req,res)=>{
@@ -36,11 +36,16 @@ router.post("/api/auth",async(req,res)=>{
     res.send(data);
 })
 router.post("/api/newacount",async(req,res)=>{
-    let data=await account.creatAcount(req.body.username,req.body.password,req.body.name,req.body.phone,req.body.email,req.body.address);
+    let data=await account.creatAcount(req.body.username,req.body.password,req.body.name,req.body.phone,req.body.email);
     res.send("Heloo world!");
 })
 router.post("/api/editpass",async(req,res)=>{
     let data=await account.editPass(req.body.id,req.body.password);
     res.send("Heloo world!");
+})
+router.post("/api/getaddress", async(req,res)=>{
+    let id=req.body.id;
+    let data=account.address(id);
+    res.send(data);
 })
 module.exports = router ;
