@@ -23,5 +23,7 @@ require('./middlewares/route.mdw')(app);
 
 //Listen at PORT
 app.listen(PORT, async() => {
+    let data=await book.searchByName("c");
+    console.log(data);
     console.log(`Listening Port: ${PORT}`);
 });
