@@ -18,12 +18,15 @@ module.exports={
     },
     addCat: async(name)=>{
         db.load(`INSERT INTO categories (cat_name) VALUES ('${name}') `);
+        return null;
     },
     editCat: async(id, name)=>{
         db.load(`UPDATE categories SET cat_name = '${name}' WHERE cat_id =${id}`);
+        return null;
     },
     deleteCat: async(id)=>{
         db.load(`DELETE FROM categories WHERE cat_id =${id}`);
+        return null;
     },
     
 }

@@ -33,13 +33,16 @@ module.exports={
         await db.load("insert into users (`user-username`, `user-password`,`user-name`,`user-phone`,`user-email`) values"
         + `("${username}","${password}","${name}","${phone}","${email}")`);
         let id=await db.load("select `user-id` as id from users where `user-username`="+`"${username}"`);
-        await db.load(`insert into address(address_user, address_name) values (${id[0].id},";;;;;")`)
+        await db.load(`insert into address(address_user, address_name) values (${id[0].id},";;;;;")`);
+        return null;
     },
     editPass: async(id, password)=>{
         await db.load("update users set `user-password`="+`"${password}" where `+"`user-id`="+`${id}`);
+        return null;
     },
     editadress: async(id, address)=>{
         await db.load(`update address set address_name="${address}" where address_user=${id}`);
+        return null;
     },
     address: async(id)=>{
         let address=await db.load(`select address_name as address from address where address_user=${id}`);
@@ -58,10 +61,10 @@ module.exports={
     },
     editEmail: async(id, email)=>{
         await db.load("update users set `user-email`="+`" ${email} "`+" where `user-id`="+`${id}`);
-        return;
+        return null;
     },
     editPhone: async(id, phone)=>{
         await db.load("update users set `user-phone`="+`" ${phone} "`+" where `user-id`="+`${id}`);
-        return;
+        return null;
     }
 }

@@ -24,6 +24,11 @@ router.post("/api/editbook",async (req,res)=>{
     let price=req.body.price;
     await book.bookEdit(id,name,cat,author,price);
 });
+router.post("/api/singlebook",async (req,res)=>{
+    let id=req.body.id;
+    let data=await book.singleBookinfor(id);
+    res.send(data);
+});
 // cat
 router.get("/api/allcat", async(req,res)=>{
     console.log("here");
