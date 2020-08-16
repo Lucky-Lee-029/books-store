@@ -48,4 +48,11 @@ router.post("/api/getaddress", async(req,res)=>{
     let data=account.address(id);
     res.send(data);
 })
+router.post("/api/addorder", async(req,res)=>{
+    await cart.addToOrder(req.body.id,req.body.idUser,req.body.time_start,req.body.books,req.body.total);
+})
+router.post("/api/addorder", async(req,res)=>{
+    let data =await cart.allOrder();
+    res.send(data);
+})
 module.exports = router ;

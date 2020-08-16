@@ -5,20 +5,22 @@ var secret = 'xxx';
 module.exports={
     checkAcount:async(username, password)=>{
         let data={
-            "raw": 0
+            "raw": 0,
+            "id": 0
         }
-        let adminPass=await db.load(`select admin_password as pass from admins where admin_logname="${username}"`);
-        if(adminPass[0]){
-            if(adminPass[0].pass==password){
+        let admin=await db.load(`select admin_password as pass admin_id as id from admins where admin_logname="${username}"`);
+        if(admin[0]){
+            if(admin[0].pass==password){
                 data.raw=2;
+                data.id=admin[0].id;
         }
         }else{
-            let userPass=await db.load("select `user-password` as pass from users where `user-username`="+ `"${username}"`);
-            console.log(userPass);
-            if(userPass[0]){
-                console.log(userPass[0]);
-                if(password==userPass[0].pass){
+            let user=await db.load("select `user-password` as pass `user-id` as id from users where `user-username`="+ `"${username}"`);
+            if(user[0]){
+                console.log(user[0]);
+                if(password==user[0].pass){
                     data.raw=1;
+                    data.id=user[0].id;
                 }
             }
         }
