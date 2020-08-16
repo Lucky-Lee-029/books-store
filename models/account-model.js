@@ -1,32 +1,33 @@
 const db=require('../utils/db');
 const jwt = require('jwt-simple');
 var secret = 'xxx';
-
-module.exports={
-    checkAcount:async(username, password)=>{
-        let data={
-            "role": 0,
-            "id": 0
-        }
-        let admin=await db.load(`select admin_password as pass, admin_id as id from admins where admin_logname="${username}"`);
-        if(admin[0]){
-            if(admin[0].pass==password){
-                data.role=2;
-                data.id=admin[0].id;
-        }
-        }else{
-            let user=await db.load("select `user-password` as pass, `user-id` as id from users where `user-username`="+ `"${username}"`);
-            if(user[0]){
-                if(password==user[0].pass){
-                    data.role=1;
-                    data.id=user[0].id;
-                }
+const checkAuth = async(username, password) => {
+    let data={
+        "role": 0,
+        "id": 0
+    }
+    let admin=await db.load(`select admin_password as pass, admin_id as id from admins where admin_logname="${username}"`);
+    if(admin[0]){
+        if(admin[0].pass==password){
+            data.role=2;
+            data.id=admin[0].id;
+    }
+    }else{
+        let user=await db.load("select `user-password` as pass, `user-id` as id from users where `user-username`="+ `"${username}"`);
+        if(user[0]){
+            console.log("infor 2");
+            if(password==user[0].pass){
+                data.role=1;
+                data.id=user[0].id;
             }
         }
-        if(data.role==0) return null;
-        let checked=jwt.encode(data,secret);
-        return checked;
-    },
+    }
+    if(data.role==0) return null;
+    let checked=jwt.encode(data,secret);
+    return checked;
+}
+module.exports={
+    checkAcount:checkAuth,
     createAccount:async(username, password, name, phone, email)=>{
         if(!username || !password || !name || !phone || !email)
         return;
@@ -36,9 +37,14 @@ module.exports={
         await db.load(`insert into address(address_user, address_name) values (${id[0].id},";;;;;")`);
         return null;
     },
-    editPass: async(id, password)=>{
-        await db.load("update users set `user-password`="+`"${password}" where `+"`user-id`="+`${id}`);
-        return null;
+    editPass: async(id, oldPass, newPass)=>{
+        let username=await db.load("select `user-username` as name from users where `user-id`="+`${id}`);
+        let check=await checkAuth(username[0].name,oldPass);
+        if(check){
+            await db.load("update users set `user-password`="+`"${newPass}" where `+"`user-id`="+`${id}`);
+            return true;
+        }
+        return false;
     },
     editadress: async(id, address)=>{
         await db.load(`update address set address_name="${address}" where address_user=${id}`);

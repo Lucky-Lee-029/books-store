@@ -23,6 +23,7 @@ router.post("/api/editbook",async (req,res)=>{
     let author=req.body.author;
     let price=req.body.price;
     await book.bookEdit(id,name,cat,author,price);
+    res.send(null);
 });
 router.post("/api/singlebook",async (req,res)=>{
     let id=req.body.id;
@@ -43,15 +44,18 @@ router.post("/api/bookincat", async(req,res)=>{
 router.post("/api/addcat", async(req,res)=>{
     let name=req.body.catName;
     await cat.addCat(name);
+    res.send(null);
 })
 router.post("/api/editcat", async(req,res)=>{
     let name=req.body.catName;
     let id=req.body.catId;
     await cat.editCat(id,name);
+    res.send(null);
 })
 router.post("/api/delcat", async(req,res)=>{
     let id=req.body.catId;
     await cat.deleteCat(id);
+    res.send(null);
 })
 // infor
 router.post("/api/basicinfor",async(req,res)=>{
@@ -74,9 +78,15 @@ router.post("/api/auth",async(req,res)=>{
 })
 router.post("/api/newaccount",async(req,res)=>{
     let data=await account.createAccount(req.body.username,req.body.password,req.body.name,req.body.phone,req.body.email);
+    res.send(null);
 })
 router.post("/api/editpass",async(req,res)=>{
-    let data=await account.editPass(req.body.id,req.body.password);
+    let data=await account.editPass(req.body.id,req.body.old_pass,req.body.new_pass);
+    if(data==true){
+        res.send(true);
+    }else{
+        res.send(false);
+    }
 })
 router.post("/api/getaddress", async(req,res)=>{
     let id=req.body.id;
@@ -87,6 +97,7 @@ router.post("/api/editaddress",async(req,res)=>{
     let id=req.body.id;
     let address=req.body.address;
     await account.editadress(id,address);
+    res.send(null);
 })
 router.post("/api/editcontact",async(req,res)=>{
     let id=req.body.id;
@@ -100,10 +111,12 @@ router.post("/api/editcontact",async(req,res)=>{
     if(phone){
         await account.editPhone(id,phone);
     }
+    res.send(null);
 })
 //order
 router.post("/api/addorder", async(req,res)=>{
     await cart.addToOrder(req.body.id,req.body.idUser,req.body.time_start,req.body.books,req.body.total);
+    res.send(null);
 })
 router.post("/api/allorder", async(req,res)=>{
     let id=req.body.id;
@@ -114,5 +127,6 @@ router.post("/api/changestatus", async(req,res)=>{
     let id=req.body.orderId;
     let status=req.body.status;
     await cart.editStatus(id,status);
+    res.send(null);
 })
 module.exports = router ;
