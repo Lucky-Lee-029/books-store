@@ -29,12 +29,12 @@ router.post("/api/bookincat", async(req,res)=>{
 })
 
 // infor
-router.get("/api/basicinfor",async(req,res)=>{
-    let id = req.query.id;
+router.post("/api/basicinfor",async(req,res)=>{
+    let id = req.body.id;
     let data=await profile.BasicInfor(id);
     res.send(data);
 });
-router.get("/api/ortherinfor",async(req,res)=>{
+router.post("/api/ortherinfor",async(req,res)=>{
     let id=req.body.id;
     let data=await profile.OtherInfor(id);
     res.send(data);
