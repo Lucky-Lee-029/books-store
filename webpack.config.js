@@ -114,6 +114,14 @@ module.exports = (env) => {
     //minimizer: [new UglifyJsPlugin()],
   },
   devServer: {
+    port: 8080,
+    proxy: {
+      "*": {
+        "changeOrigin": true,
+        "cookieDomainRewrite": "localhost",
+        "target": "http://localhost:3000"
+      }
+    },
     contentBase: path.join(__dirname, 'public/dist'),
     historyApiFallback: true,
     headers: {

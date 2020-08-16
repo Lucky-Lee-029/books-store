@@ -46,12 +46,12 @@ module.exports={
         let str=address[0].address;
         let items=str.split(';');
         let data={
-            "local": items[0],
-            "city": items[1],
-            "state": items[2],
-            "landmark": items[3],
-            "country": items[4],
-            "code":items[5]
+            "local": items[0] || "Chưa xác định",
+            "city": items[1] || "Chưa xác định",
+            "state": items[2] || "Chưa xác định",
+            "landmark": items[3] || "Chưa xác định",
+            "country": items[4] || "Chưa xác định",
+            "code":items[5] || "Chưa xác định"
         }
         console.log(data);
         return data;

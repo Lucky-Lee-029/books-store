@@ -17,7 +17,7 @@ class Item extends Component {
           this.props.history.push(`/item/${this.props.product.id}`);
         }}>
           <div className="product-img">
-            <img alt={this.props.product.name} src={this.props.product.img} />
+            <img alt={this.props.product.name} src={this.props.product.image} />
           </div>
           <div className="product-details">
             <h1 id="product-name">{this.props.product.name}</h1>

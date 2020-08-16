@@ -5,9 +5,10 @@
   "main": "app.js",
   "scripts": {
     "test": "make test",
-    "start": "node app.js",
+    "server": "node app.js",
     "pack": "webpack --optimize-minimize",
-    "server": "webpack-dev-server"
+    "client-server": "webpack-dev-server",
+    "dev": "concurrently \"yarn run server\" \"yarn run client-server\""
   },
   "repository": {
     "type": "git",
@@ -22,6 +23,7 @@
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.30",
     "@fortawesome/react-fontawesome": "^0.1.11",
+    "axios": "^0.19.2",
     "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.5",
     "dotenv-webpack": "^1.8.0",
@@ -62,6 +64,7 @@
     "babel-loader": "^8.1.0",
     "babel-plugin-transform-imports": "^2.0.0",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
+    "concurrently": "^5.3.0",
     "css-loader": "^3.5.3",
     "file-loader": "^6.0.0",
     "html-webpack-plugin": "^4.3.0",

@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
-
+import Axios from 'axios'
 import './styles.sass';
 
 class BasicInfo extends Component {
   product = {
-    name: "Trương Nguyễn Anh Hoàng"
+    name: ""
+  }
+  componentDidMount() {
+    Axios.post('/api/basicinfor', {id: this.props.id}).then((res) =>this.setState({name: res.data.name})); 
   }
   render() {
     return(

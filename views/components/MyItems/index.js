@@ -4,7 +4,6 @@ import UserItem from '../UserItem/index';
 import {connect} from 'react-redux'
 import PurchasePanel from './panel';
 import './styles.sass';
-import { data } from 'autoprefixer';
 
 class MyItems extends Component {
 

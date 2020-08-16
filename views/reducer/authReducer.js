@@ -13,6 +13,9 @@ import jwt from 'jwt-simple'
 // }
 const INITIAL_STATE =  {
     accessToken: accessToken ? accessToken : null,
+    id: accessToken
+    ? jwt.decode(accessToken,'xxx').id
+    : null,
     role: accessToken
       ? jwt.decode(accessToken,'xxx').role
       : null
@@ -20,18 +23,20 @@ const INITIAL_STATE =  {
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
       case SET_AUTH:
-        const role = jwt.decode(action.payload,'xxx').role
-        if( role!= 0) {
+        const data = jwt.decode(action.payload,'xxx');
+        if( data.role!= 0) {
             let token = { accessToken: action.payload};
             localStorage.setItem('token', JSON.stringify(token))
             return {
                 accessToken: action.payload,
-                role: role
+                id: data.id,
+                role: data.role
             };
         }
         else {
             return {
                 accessToken: null,
+                id: null,
                 role: 0
             }
         }
@@ -39,6 +44,7 @@ export default (state = INITIAL_STATE, action) => {
         localStorage.removeItem('token');
         return {
           accessToken: null,
+          id: null,
           role: 0
         }
       default:

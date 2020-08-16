@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './styles.sass';
 import { map } from 'lodash';
-
+import Axios from 'axios';
 class OtherInfo extends Component {
   state = {
     locationEditing: false,
@@ -13,14 +13,22 @@ class OtherInfo extends Component {
       state: "Big City Boy",
       landmark: "Old Landmark",
       country: "Vietnam",
-      code: 65000
+      code: "65000"
     },
     contact: {
       phone: "+84-9999999999",
       mail: "bigcityboy@gmail.com"
     }
   };
+  componentDidMount() {
+    Axios.post('/api/otherinfor', {id: this.props.id}).then((res) => this.setState({contact: {phone: res.data.phone, mail: res.data.email}})); 
+    Axios.post('/api/getaddress', {id: this.props.id}).then((res) => this.setState({location: res.data}))
+  }
+  componentDidUpdate() {
+    console.log(this.state);
+  }
   mergeObject(target, merging) {
+    console.log(merging);
     return Object.keys(target).reduce((dest, key) => {
       if(merging.hasOwnProperty(key)) {
         dest[key] = merging[key];
@@ -39,6 +47,12 @@ class OtherInfo extends Component {
         const changed = Array.prototype.filter.call(nodeList, (node) => node.value);
         const newState = this.mergeObject(this.state[target], changed.reduce((map, node) => {map[node.id] = node.value; return map;},{}));
         this.setState({[target]: newState});
+        const text = Object.keys(newState).reduce((data, key) => {
+          if(data !== "") data = data + ';' + newState[key];
+          else data += newState[key];
+          return data;
+        }, "");
+        Axios.post('/api/editaddress', {id: this.props.id, address: text});
         break;
       case 'PASSWORD':
         target = "passwordEditing";
