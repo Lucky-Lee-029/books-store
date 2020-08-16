@@ -4,6 +4,7 @@ import UserItem from '../UserItem/index';
 import {connect} from 'react-redux'
 import PurchasePanel from './panel';
 import './styles.sass';
+import { data } from 'autoprefixer';
 
 class MyItems extends Component {
 
@@ -29,7 +30,8 @@ class MyItems extends Component {
           <div className = "productList">
             {this.props.products.map((data, i) => <UserItem key={i} product = {data}/>)}
           </div>
-          <PurchasePanel total = {this.props.products.reduce((total, current) => total + current.price,0)} />
+          <PurchasePanel total = {Math.round(this.props.products.reduce((total, current) => total + current.price,0)* 100) / 100} 
+                         list = {this.props.products.map((data) => data.id)} />
         </div>
         : <h3>Hiện chưa thêm sản phẩm nào vào giỏ hàng</h3>}
       </div>

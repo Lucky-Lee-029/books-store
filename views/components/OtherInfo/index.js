@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-
 import './styles.sass';
+import { map } from 'lodash';
 
 class OtherInfo extends Component {
   state = {
@@ -20,33 +20,58 @@ class OtherInfo extends Component {
       mail: "bigcityboy@gmail.com"
     }
   };
+  mergeObject(target, merging) {
+    return Object.keys(target).reduce((dest, key) => {
+      if(merging.hasOwnProperty(key)) {
+        dest[key] = merging[key];
+      }
+      else {
+        dest[key] = target[key];
+      }
+      return dest;
+    }, {});
+  }
+  getData = (target) => {
+    switch(target) {
+      case 'LOCATION': case 'CONTACT':
+        target = target.toLowerCase();
+        const nodeList = document.querySelectorAll(`.${target}`);
+        const changed = Array.prototype.filter.call(nodeList, (node) => node.value);
+        const newState = this.mergeObject(this.state[target], changed.reduce((map, node) => {map[node.id] = node.value; return map;},{}));
+        this.setState({[target]: newState});
+        break;
+      case 'PASSWORD':
+        target = "passwordEditing";
+        break;
+    }
+  }
   getLocationData() {
     if (this.state.locationEditing) {
       return (
         <div className="lIWrapper" key="lIWrapper">
           <div className="inputWrapper">
             <label htmlFor="localAddress">Local Address:</label>
-            <input id="localAddress" className="localAddress" type="text" placeholder="Local Address" />
+            <input id="local" className="location" type="text" placeholder="Không thay đổi" />
           </div>
           <div className="inputWrapper">
             <label htmlFor="city">Tỉnh/thành phố:</label>
-            <input id="city" className="city" type="text" placeholder="Tỉnh/thành phố" />
+            <input id="city" className="location" type="text" placeholder="Không thay đổi" />
           </div>
           <div className="inputWrapper">
             <label htmlFor="state">Quận/huyện:</label>
-            <input id="state" className="state" type="text" placeholder="Quận/huyện" />
+            <input id="state" className="location" type="text" placeholder="Không thay đổi" />
           </div>
           <div className="inputWrapper">
             <label htmlFor="landmark">Phường/xã:</label>
-            <input id="landmark" className="landmark" type="text" placeholder="Phường/xã" />
+            <input id="landmark" className="location" type="text" placeholder="Không thay đổi" />
           </div>
           <div className="inputWrapper">
             <label htmlFor="country">Quốc gia:</label>
-            <input id="country" className="country" type="text" placeholder="Quốc gia" />
+            <input id="country" className="location" type="text" placeholder="Không thay đổi" />
           </div>
           <div className="inputWrapper">
-            <label htmlFor="pincode">Mã bưu điện:</label>
-            <input id="pincode" className="pinCode" type="text" placeholder="Mã bưu điện" />
+            <label htmlFor="code">Mã bưu điện:</label>
+            <input id="code" className="location" type="text" placeholder="Không thay đổi" />
           </div>
         </div>
       );
@@ -88,11 +113,11 @@ class OtherInfo extends Component {
         <div className="cIWrapper" key="cIWrapper">
           <div className="inputWrapper">
             <label htmlFor="email">Email:</label>
-            <input id="email" className="email" type="email" placeholder="Email" />
+            <input id="email" className="contact" type="email" placeholder="Email" />
           </div>
           <div className="inputWrapper">
             <label htmlFor="phone">Phone no:</label>
-            <input id="phone" className="phone" type="tel" placeholder="Phone No" />
+            <input id="phone" className="contact" type="tel" placeholder="Phone No" />
           </div>
         </div>
       );
@@ -156,7 +181,7 @@ class OtherInfo extends Component {
         <button 
           className="marB20"
           onClick={() => {
-            this.setQuận/huyện({[target]: true });
+            this.setState({[target]: true });
         }}>
           Edit
         </button>
@@ -167,14 +192,15 @@ class OtherInfo extends Component {
         <button className="marB20"
           key="lSave"
           onClick={() => {
-            this.setQuận/huyện({ [target]: false });
+            this.getData(info);
+            this.setState({ [target]: false });
           }}>
           Save
         </button>,
         <button className="marB20 cancelBtn"
           key="lCancel"
           onClick={() => {
-            this.setQuận/huyện({ [target]: false });
+            this.setState({ [target]: false });
           }}>
           Cancel
         </button>

@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 import DoneOrder from '../DoneOrder/index';
 import PendingOrder from '../PendingOrder/index';
 import './styles.sass';
+import {connect} from 'react-redux'
 
 class Orders extends Component {
-
   componentDidMount() {
     document.body.scrollTop = 0;
     document.querySelector('.menu').classList.remove('open');
@@ -13,17 +13,11 @@ class Orders extends Component {
 
 
   getAllPendingOrders() {
-    return ([
-      <PendingOrder key="1" />,
-      <PendingOrder key="2" />
-    ]);
+    return (this.props.orders.map((pending) => !pending.status ? <PendingOrder key = {pending.id} order = {pending}/> : null));
   }
 
   getAllDoneOrders() {
-    return ([
-      <DoneOrder key="1" />,
-      <DoneOrder key="2" />
-    ]);
+    return (this.props.orders.map((done) => done.status ? <DoneOrder key = {done.id} order = {done}/> : null));
   }
 
 
@@ -51,5 +45,9 @@ class Orders extends Component {
     );
   }
 }
-
-export default Orders;
+const mapStateToProps = state => {
+  return {
+    orders: state.orders
+  };
+};
+export default connect(mapStateToProps)(Orders);
