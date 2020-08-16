@@ -18,6 +18,7 @@ class Homepage extends Component {
   }
   handleSubmitLink = (e) => {
     e.preventDefault();
+    this.setState({search: false});
     this.props.history.push('/search');
     Axios.post('/api/search', {name: e.target.elements.search.value}).then((res) => {
       this.setState({products: res.data, search: true});
@@ -29,7 +30,7 @@ class Homepage extends Component {
     Axios.get('/api/books').then((res) => this.setState({products: res.data}));    
   }
   static getDerivedStateFromProps(nextProps, prevState) {
-    if(!prevState.category)  return {category: 'stop'};
+    if(prevState.category === undefined)  return {category: 'stop'};
     else if(nextProps.match.params.id !== prevState.category && nextProps.match.params.id) {
       return {category: nextProps.match.params.id}
     }
