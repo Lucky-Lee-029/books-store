@@ -3,10 +3,18 @@ import {
   } from '../actions/auth/types';
 import jwt from 'jwt-simple';
 import Axios from 'axios';
-import store from '../store/store'
- const accessToken = localStorage.getItem('token')
-   ? JSON.parse(localStorage.getItem('token')).accessToken
+import {store} from '../store/store'
+const auth = localStorage.getItem('token')
+   ? JSON.parse(localStorage.getItem('token'))
    : false;
+let accessToken;
+if(Date.now() - auth.timestamp < 10800000) {
+  accessToken = auth.accessToken;
+}
+else {
+  accessToken = null;
+}
+
 
 // export default function(state = initialState, action) {
 // switch (action.type) {
@@ -27,7 +35,7 @@ export default (state = INITIAL_STATE, action) => {
       case SET_AUTH:
         const data = jwt.decode(action.payload,'xxx');
         if( data.role!= 0) {
-            let token = { accessToken: action.payload};
+            let token = { accessToken: action.payload, timestamp: Date.now()};
             localStorage.setItem('token', JSON.stringify(token));
             Axios.post('/api/allorder', {id: data.id}).then((res) => {
               store.dispatch({

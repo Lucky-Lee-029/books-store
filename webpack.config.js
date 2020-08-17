@@ -15,7 +15,7 @@ module.exports = (env) => {
   output: {
     publicPath : '/',
     path: path.join(__dirname, './public/dist'),
-    filename: '[name].[contenthash:8].js'
+    filename: '[name].[hash].js'
   },
   plugins: [
     new webpack.HashedModuleIdsPlugin(),
