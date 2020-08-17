@@ -7,7 +7,7 @@ import {setAuth} from '../../actions/auth/action'
 import Axios from 'axios';
 import { withSwalInstance } from 'sweetalert2-react';
 import swal from 'sweetalert2';
-
+import jwt from 'jwt-simple'
 const SweetAlert = withSwalInstance(swal);
 class Login extends Component {
   state = {
@@ -23,8 +23,12 @@ class Login extends Component {
     const password = e.target.elements.password.value;
     Axios.post('/api/auth', {username: username, password: password}).then((res) => {
       const auth = res.data;
-      if(auth) {this.props.setAuth(auth); this.props.history.push('/')}
-      else this.setState({show: true})
+      const data = jwt.decode(auth,'xxx');
+      if(data.role === 2)  window.location.assign('/admin');
+      else {
+        if(auth) {this.props.setAuth(auth); this.props.history.push('/')}
+        else this.setState({show: true});
+      }
     });    
   }
   render() {

@@ -129,6 +129,7 @@ router.post("/api/editcontact",async(req,res)=>{
 })
 //order
 router.post("/api/addorder", async(req,res)=>{
+    console.log(req.body.id)
     await cart.addToOrder(req.body.id,req.body.idUser,req.body.time_start,req.body.books,req.body.total);
     res.send(null);
 })

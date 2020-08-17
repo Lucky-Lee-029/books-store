@@ -9,7 +9,7 @@ const checkAuth = async(username, password) => {
         "role": 0,
         "id": 0
     }
-    
+    console.log(password);
     let admin=await db.load(`select admin_password as pass, admin_id as id from admins where admin_logname="${username}"`);
     if(admin[0]){
         if(bcrypt.compareSync(password,admin[0].pass)){

@@ -56,6 +56,8 @@ class PurchasePanel extends Component {
           </div>
           <button onClick = {this.purchase}>Thanh toán</button>
         </div>
+        <input placeholder = "Nhập coupon"></input>
+        <button className = "coupon">Áp dụng coupon</button>
         <SweetAlert
         show={this.state.show}
         title="Failed"
