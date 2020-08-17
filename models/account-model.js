@@ -67,7 +67,6 @@ module.exports={
             "country": items[4] || "Chưa xác định",
             "code":items[5] || "Chưa xác định"
         }
-        console.log(data);
         return data;
     },
     editEmail: async(id, email)=>{

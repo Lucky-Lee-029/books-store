@@ -6,7 +6,6 @@ const countBookInCat= async(id)=>{
 module.exports={
     allCat:async()=>{
         let cats=await db.load(`select cat_id as id, cat_name as name from categories`);
-        console.log(cats);
         return cats;
     },
     allCatAdmin:async()=>{
