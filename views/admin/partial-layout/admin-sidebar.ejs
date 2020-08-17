@@ -1,0 +1,34 @@
+        <nav class="side-navbar">
+          <!-- Sidebar Header-->
+          <div class="sidebar-header d-flex align-items-center">
+            <div class="avatar"><img src="../img/ava.jpg" alt="avatar" class="img-fluid"></div>
+            <div class="title">
+              <h4>Hi, Hoàng</h4>
+              <p>Quản lý kho hàng</p>
+            </div>
+          </div>
+          <!-- Sidebar Navidation Menus-->
+          <span class="heading">TỔNG QUAN</span>
+          <ul class="list-unstyled">
+            <li><a href="/"><i class="fas fa-home"></i>&nbsp;Trang chủ </a></li>
+            <li><a href="#"><i class="fas fa-receipt"></i>&nbsp; Some awesome feature</a></li>
+            <li><a href="#"><i class="fas fa-eye"></i>&nbsp;Another awesome feature </a></li>
+          </ul>
+          <span class="heading">QUẢN LÝ</span>
+          <ul class="list-unstyled">
+            <li <% if (page_name === '/admin/manage-category') { %> class="active" <% } %> ><a href="/admin/manage-category"><i class="fas fa-list"></i>&nbsp; Quản lý danh mục</a></li>
+            <li <% if (page_name === '/admin/manage-order') { %> class="active" <% } %> ><a href="/admin/manage-order"><i class="fas fa-users"></i>&nbsp;Quản lý đơn hàng</a></li>
+            <li <% if (page_name === '/admin/manage-book') { %> class="active" <% } %> ><a href="/admin/manage-book"><i class="fas fa-box"></i>&nbsp; Quản lý sách</a></li>
+          </ul><span class="heading">THU CHI</span>
+          <ul class="list-unstyled">
+            <li> <a href="#"><i class="fas fa-money-bill"></i>&nbsp;Doanh số</a></li>
+            <li> <a href="#"><i class="fas fa-search-dollar"></i>&nbsp;Lợi Nhuận</a></li>
+            <li> <a href="#"><i class="fas fa-wallet"></i>&nbsp;Vay nợ</a></li>
+          </ul>
+        </ul><span class="heading">THIẾT LẬP</span>
+        <ul class="list-unstyled">
+          <li> <a href="#"><i class="fas fa-user-plus"></i>&nbsp;Profile của bạn</a></li>
+          <li> <a href="#"><i class="fas fa-cogs"></i>&nbsp;Cài đặt chung</a></li>
+          <li> <a href="/login"><i class="fas fa-sign-out-alt"></i>&nbsp; Thoát </a></li>
+        </ul>
+        </nav>

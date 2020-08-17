@@ -24,18 +24,22 @@ router.post("/api/addbook",async (req,res)=>{
     await book.bookAdd(name,cat,author,price);
     res.send(null);
 });
-router.post("/api/editbook",async (req,res)=>{
-    let id=req.body.bookId;
-    let name=req.body.name;
-    let cat=req.body.catId;
-    let author=req.body.author;
-    let price=req.body.price;
+router.post("/admin/manage-book/edit",async (req,res)=>{
+    let id=req.body.id;
+    let column = req.body.column
+    let data = {};
+    data[column] = req.body.info;
+    let name=data.name;
+    let cat=data.catId;
+    let author=data.author;
+    let price=data.price;
     await book.bookEdit(id,name,cat,author,price);
     res.send(null);
 });
-router.post("/api/delbook",async (req,res)=>{
-    let name=req.body.bookId;
-    let data=await book.bookDelete(id);
+router.post("/admin/manage-book/delete",async (req,res)=>{
+    let id =req.body.id;
+    console.log(id);
+    let data = await book.bookDelete(id);
     res.send(null);
 });
 router.post("/api/singlebook",async (req,res)=>{
@@ -59,14 +63,14 @@ router.post("/api/addcat", async(req,res)=>{
     await cat.addCat(name);
     res.send(null);
 })
-router.post("/api/editcat", async(req,res)=>{
-    let name=req.body.catName;
-    let id=req.body.catId;
+router.post("/admin/manage-category/edit", async(req,res)=>{
+    const name=req.body.info;
+    const id=req.body.id;
     await cat.editCat(id,name);
     res.send(null);
 })
-router.post("/api/delcat", async(req,res)=>{
-    let id=req.body.catId;
+router.post("/admin/manage-category/delete", async(req,res)=>{
+    let id=req.body.id;
     await cat.deleteCat(id);
     res.send(null);
 })
@@ -142,9 +146,61 @@ router.post("/api/changestatus", async(req,res)=>{
     await cart.editStatus(id,status);
     res.send(null);
 })
-router.post("/api/admin/ordercomplete", async(req,res)=>{
+router.post("/admin/manage-order/complete", async(req,res)=>{
     let id=req.body.orderId;
     await cart.editStatus(id,1);
     res.send(null);
 })
+router.get("/admin", async(req, res, next) => {
+    try {
+       const data=await cat.allCat();
+       res.render('admin/admin-views/admin-category', {
+           title: 'Quan ly',
+           list: data,
+           page_name: req.path
+       });
+     } catch (err) {
+       console.log(err);
+       res.end('View error log in console.');
+     }
+   });
+   router.get("/admin/manage-category", async(req, res, next) => {
+       try {
+          const data=await cat.allCatAdmin();
+          res.render('admin/admin-views/admin-category', {
+              title: 'Quan ly',
+              list: data,
+              page_name: req.path
+          });
+        } catch (err) {
+          console.log(err);
+          res.end('View error log in console.');
+        }
+      });
+   router.get("/admin/manage-book", async(req, res, next) => {
+       try {
+          const data=await book.allBookInfor();
+          res.render('admin/admin-views/admin-book', {
+              title: 'Quan ly',
+              list: data,
+              page_name: req.path
+          });
+        } catch (err) {
+          console.log(err);
+          res.end('View error log in console.');
+        }
+   });
+   router.get("/admin/manage-order", async(req, res, next) => {
+       try {
+          const data=await cart.allOrderAdmin();
+          res.render('admin/admin-views/admin-order', {
+              title: 'Quan ly',
+              list: data,
+              page_name: req.path
+          });
+        } catch (err) {
+          console.log(err);
+          res.end('View error log in console.');
+        }
+   });
 module.exports = router ;

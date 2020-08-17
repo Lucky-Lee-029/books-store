@@ -36,8 +36,7 @@ module.exports={
         return null;
     },
     bookDelete:(id)=>{
-        db.load(`delete books
-        where id=${id}`);
+        db.load(`delete from books where book_id=${id}`);
         return null;
     },
     bookAdd:async(name,cat,author,price)=>{
