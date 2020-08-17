@@ -37,7 +37,7 @@ class SignUp extends Component {
           <h3 className="loginHeading text-center">Sign up and join our store</h3>
           <form onSubmit = {this.handleSubmitSignup}>
             <input name="username" placeholder="Nhập username của bạn vào đây" required></input>
-            <input name="password" placeholder="Nhập password của bạn vào đây" required></input>
+            <input name="password" type="password" placeholder="Nhập password của bạn vào đây" required></input>
             <input name="name" placeholder="Nhập tên của bạn vào đây" required></input>
             <input name="email" placeholder="Nhập email của bạn vào đây" required></input>
             <input name="phone" placeholder="Nhập phone của bạn vào đây" required></input>

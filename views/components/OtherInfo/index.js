@@ -12,16 +12,16 @@ class OtherInfo extends Component {
     contactEditing: false,
     passwordEditing: false,
     location: {
-      local: "Your address",
-      city: "Big City",
-      state: "Big City Boy",
-      landmark: "Old Landmark",
+      local: "Chưa xác định",
+      city: "Chưa xác định",
+      state: "Chưa xác định",
+      landmark: "Chưa xác định",
       country: "Vietnam",
       code: "65000"
     },
     contact: {
       phone: "+84-9999999999",
-      mail: "bigcityboy@gmail.com"
+      mail: "chuaxacdinh@gmail.com"
     }
   };
   componentDidMount() {

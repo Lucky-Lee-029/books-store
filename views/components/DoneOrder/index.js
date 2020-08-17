@@ -35,7 +35,7 @@ class DoneOrder extends Component {
         <br/>
         Thời gian giao hàng: <em>{this.getTime(this.props.order.time_end)}</em>
         <br/>
-        Tổng giá trị đơn: <em>{this.props.order.total} VNĐ</em>
+        Tổng giá trị đơn: <em>$ {this.props.order.total}</em>
         </h4>
       )
     }
@@ -46,7 +46,7 @@ class DoneOrder extends Component {
         <br/>
         Thời gian huỷ: <em>{this.getTime(this.props.order.time_end)}</em>
         <br/>
-        Tổng giá trị đơn: <em>{this.props.order.total} VNĐ</em>
+        Tổng giá trị đơn: <em>$ {this.props.order.total}</em>
         </h4>
       )
     }

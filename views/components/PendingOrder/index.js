@@ -37,7 +37,7 @@ class PendingOrder extends Component {
             <br/>
             Thời gian giao dự kiến: <em>{this.getTime(this.props.order.time_end)}</em>
             <br/>
-            Tổng giá trị: <em>$ {this.props.order.total} VNĐ</em>
+            Tổng giá trị: <em>$ {this.props.order.total}</em>
           </h4>
         </div>
         <div className="orderBtnWrapper lower">

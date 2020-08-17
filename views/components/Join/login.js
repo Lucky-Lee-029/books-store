@@ -23,11 +23,13 @@ class Login extends Component {
     const password = e.target.elements.password.value;
     Axios.post('/api/auth', {username: username, password: password}).then((res) => {
       const auth = res.data;
-      const data = jwt.decode(auth,'xxx');
-      if(data.role === 2)  window.location.assign('/admin');
+      if(auth) {
+        const data = jwt.decode(auth,'xxx');
+        if(data.role === 2)  window.location.assign('/admin');
+        else {this.props.setAuth(auth); this.props.history.push('/')}
+      }
       else {
-        if(auth) {this.props.setAuth(auth); this.props.history.push('/')}
-        else this.setState({show: true});
+        this.setState({show: true});
       }
     });    
   }
@@ -38,7 +40,7 @@ class Login extends Component {
           <h3 className="loginHeading text-center">Login with your account</h3>
           <form onSubmit = {this.handleSubmitLogin}>
             <input name="username" placeholder="Nhập username của bạn vào đây" required></input>
-            <input name="password" placeholder="Nhập password của bạn vào đây" required></input>
+            <input name="password" type="password" placeholder="Nhập password của bạn vào đây" required></input>
             <div className = "btnWrapper">
               <button type = "submit" className="loginBtn realBtn">Login</button>
             </div>

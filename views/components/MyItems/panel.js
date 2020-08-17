@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './styles.sass';
 import {connect} from 'react-redux'
 import {addOrder} from '../../actions/order/action';
+import {deleteAll} from '../../actions/cart/action'
 import {withRouter} from 'react-router-dom'
 import { withSwalInstance } from 'sweetalert2-react';
 import swal from 'sweetalert2';
@@ -37,7 +38,8 @@ class PurchasePanel extends Component {
         }
         this.props.addOrder(order);
         order.idUser = this.props.id;
-        Axios.post('/api/addorder', order);        
+        Axios.post('/api/addorder', order);    
+        this.props.deleteAll();    
         this.props.history.push('/orders')
       }
       else {
@@ -74,7 +76,7 @@ const mapStateToProps = state => {
   };
 };
 const mapDispatchToProps = {
-  addOrder
+  addOrder, deleteAll
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(PurchasePanel));
