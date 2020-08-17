@@ -41,6 +41,13 @@ module.exports={
         }
         return order;
     },
+    allOrderAdmin: async ()=>{
+        let order=await db.load(`select order_id as id, order_user as user, order_price as total from orders WHERE order_status=0 `);
+        if(!order[0]){
+            return [];
+        }
+        return order;
+    },
     editStatus:async (id,status)=>{
         await db.load(`update orders set order_status=${status} where order_id=${id}`);
         return null;
