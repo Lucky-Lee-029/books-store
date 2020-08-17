@@ -42,7 +42,7 @@
                       </div>
                     </div>
                     <div class="card-header d-flex align-items-center">
-                      <h3>Các danh mục có trong kho</h3>
+                      <h3>Các sách có trong kho</h3>
                     </div>
                     <div class="card-body">
                       <div class="table-responsive">                       
@@ -74,10 +74,16 @@
                     </div>
                   </div>
                   <div class="col-lg-4 text-center" id = "add">
-                      <form action="./add" class="form text-center" method="post">
-                        <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Thêm danh mục mới</h1>
-                        <input type="text" name ="name" id="first" class="form-control" placeholder="Tên danh mục" required="" autofocus="">
-                        <input type="text" id="last" name="description" class="form-control" placeholder="Mô tả danh mục" required="" autofocus="">
+                      <form action="./manage-book/add" class="form text-center" method="post">
+                        <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Thêm sách mới</h1>
+                        <input type="text" name ="name" id="first" class="form-control" placeholder="Tên sách" required="" autofocus="">
+                        <input type="text" id="last" name="author" class="form-control" placeholder="Tên tác giả" required="" autofocus="">
+                        <input type="number"  name="price" class="form-control" placeholder="Giá" required="" autofocus="">
+                        <select name="category" class="form-control">
+                            <% category.forEach(function(item) {  %>
+                                <option value= <%= item.id %> ><%= item.name %></option>
+                            <% }); %>
+                        </select>
                         <button class="btn btn-primary btn-block" id ="submit-btn" type="submit"><i class="fas fa-user-plus"></i>Thêm mới</button>
                         <a href="#" id="cancel"><i class="fas fa-angle-left"></i>Huỷ bỏ</a>
                     </form>

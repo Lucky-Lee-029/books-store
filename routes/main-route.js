@@ -16,9 +16,9 @@ router.post("/api/search",async (req,res)=>{
     let data=await book.searchByName(name);
     res.send(data);
 });
-router.post("/api/addbook",async (req,res)=>{
+router.post("/admin/manage-book/add",async (req,res)=>{
     let name=req.body.name;
-    let cat=req.body.catId;
+    let cat=req.body.category;
     let author=req.body.author;
     let price=req.body.price;
     await book.bookAdd(name,cat,author,price);
@@ -57,8 +57,8 @@ router.post("/api/bookincat", async(req,res)=>{
     let data=await cat.bookInCat(id);
     res.send(data);
 })
-router.post("/api/addcat", async(req,res)=>{
-    let name=req.body.catName;
+router.post("/admin/manage-category/add", async(req,res)=>{
+    let name=req.body.name;
     await cat.addCat(name);
     res.send(null);
 })
@@ -71,7 +71,7 @@ router.post("/admin/manage-category/edit", async(req,res)=>{
 router.post("/admin/manage-category/delete", async(req,res)=>{
     let id=req.body.id;
     await cat.deleteCat(id);
-    res.send(null);
+    res.send(true);
 })
 // infor
 router.post("/api/basicinfor",async(req,res)=>{
@@ -119,8 +119,6 @@ router.post("/api/editcontact",async(req,res)=>{
     let id=req.body.id;
     let email=req.body.email;
     let phone=req.body.phone;
-    console.log(email);
-    console.log(phone);
     if(email){
         await account.editEmail(id,email);
     }
@@ -146,7 +144,7 @@ router.post("/api/changestatus", async(req,res)=>{
     res.send(null);
 })
 router.post("/admin/manage-order/complete", async(req,res)=>{
-    let id=req.body.orderId;
+    let id=req.body.id;
     await cart.editStatus(id,1);
     res.send(null);
 })
@@ -178,10 +176,12 @@ router.get("/admin", async(req, res, next) => {
       });
    router.get("/admin/manage-book", async(req, res, next) => {
        try {
-          const data=await book.allBookInfor();
+            
+          const [data, category] = await Promise.all([book.allBookInfor(), cat.allCatAdmin()]);
           res.render('admin/admin-views/admin-book', {
               title: 'Quan ly',
               list: data,
+              category: category,
               page_name: req.path
           });
         } catch (err) {
