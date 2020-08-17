@@ -1,22 +1,25 @@
 const db=require('../utils/db');
 const jwt = require('jwt-simple');
 var secret = 'xxx';
+const bcrypt = require('bcrypt');
+var salt = bcrypt.genSaltSync(10);
+
 const checkAuth = async(username, password) => {
     let data={
         "role": 0,
         "id": 0
     }
+    
     let admin=await db.load(`select admin_password as pass, admin_id as id from admins where admin_logname="${username}"`);
     if(admin[0]){
-        if(admin[0].pass==password){
+        if(bcrypt.compareSync(password,admin[0].pass)){
             data.role=2;
             data.id=admin[0].id;
-    }
+        }
     }else{
         let user=await db.load("select `user-password` as pass, `user-id` as id from users where `user-username`="+ `"${username}"`);
         if(user[0]){
-            console.log("infor 2");
-            if(password==user[0].pass){
+            if(bcrypt.compareSync(password,user[0].pass)){
                 data.role=1;
                 data.id=user[0].id;
             }
@@ -31,8 +34,9 @@ module.exports={
     createAccount:async(username, password, name, phone, email)=>{
         if(!username || !password || !name || !phone || !email)
         return;
+        let hashPass=await bcrypt.hashSync(`${password}`, salt);
         await db.load("insert into users (`user-username`, `user-password`,`user-name`,`user-phone`,`user-email`) values"
-        + `("${username}","${password}","${name}","${phone}","${email}")`);
+        + `("${username}","${hashPass}","${name}","${phone}","${email}")`);
         let id=await db.load("select `user-id` as id from users where `user-username`="+`"${username}"`);
         await db.load(`insert into address(address_user, address_name) values (${id[0].id},";;;;;")`);
         return null;
@@ -41,7 +45,8 @@ module.exports={
         let username=await db.load("select `user-username` as name from users where `user-id`="+`${id}`);
         let check=await checkAuth(username[0].name,oldPass);
         if(check){
-            await db.load("update users set `user-password`="+`"${newPass}" where `+"`user-id`="+`${id}`);
+            let hashPass=await bcrypt.hashSync(`${newPass}`, salt);
+            await db.load("update users set `user-password`="+`"${hashPass}" where `+"`user-id`="+`${id}`);
             return true;
         }
         return false;
