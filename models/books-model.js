@@ -35,9 +35,13 @@ module.exports={
         }
         return null;
     },
-    bookDelete:(id)=>{
-        db.load(`delete from books where book_id=${id}`);
-        return null;
+    bookDelete:async(id)=>{
+        let count=await db.load(`SELECT count(*) as cart from book_cart where book_id=${id}`);
+        if(count[0].cart!=0){
+            return false;
+        }
+        await db.load(`delete from books where book_id=${id}`);
+        return true;
     },
     bookAdd:async(name,cat,author,price)=>{
         if(!name || !cat || !author || !price){

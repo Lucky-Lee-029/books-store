@@ -38,9 +38,8 @@ router.post("/admin/manage-book/edit",async (req,res)=>{
 });
 router.post("/admin/manage-book/delete",async (req,res)=>{
     let id =req.body.id;
-    console.log(id);
     let data = await book.bookDelete(id);
-    res.send(null);
+    res.send(data);
 });
 router.post("/api/singlebook",async (req,res)=>{
     let id=req.body.id;
