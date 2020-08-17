@@ -142,4 +142,9 @@ router.post("/api/changestatus", async(req,res)=>{
     await cart.editStatus(id,status);
     res.send(null);
 })
+router.post("/api/admin/ordercomplete", async(req,res)=>{
+    let id=req.body.orderId;
+    await cart.editStatus(id,1);
+    res.send(null);
+})
 module.exports = router ;
