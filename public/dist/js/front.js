@@ -103,8 +103,9 @@ $(document).ready(function () {
                     if(number == 0 ) {
                         tr.remove();
                         $.post(path + '/delete', { id: id }, function(res) {
-                                console.log(res);// success callback
-                                alert("Xoá danh mục thành công");
+                                if(res) {   /// success callback
+                                    alert("Xoá danh mục thành công");
+                                } else alert("Danh mục này vẫn còn sách");
                         });
                     }
                     else {
@@ -114,8 +115,9 @@ $(document).ready(function () {
                 if(path.includes('book')) {
                     tr.remove();
                     $.post(path + '/delete', { id: id }, function(res) {
-                            console.log(res);// success callback
+                        if(res) {   /// success callback
                             alert("Xoá sách thành công");
+                        } else alert("Sách này vẫn còn trong đơn hàng của user");
                     });
                 }
             }
@@ -137,6 +139,23 @@ $(document).ready(function () {
                 }
             }
             });             
+    });
+    $('#add').submit(function (evt) {
+        evt.preventDefault();
+        const path = window.location.pathname;
+        const data = $(this)[0].children[0];
+        if(path.includes('book')) {
+            $.post(path + '/add', { name: data.name.value, author: data.author.value, price: data.price.value, category: data.category.value }, () => {
+                location.reload();
+            });
+        }
+        if(path.includes('category')) {
+            $.post(path + '/add', { name: data.name.value}, () => {
+                location.reload();
+            });
+        }
+        
+
     });
     //Add form
     function toggleAddForm(e){
