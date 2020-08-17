@@ -40,6 +40,15 @@ module.exports={
         where id=${id}`);
         return null;
     },
+    bookAdd:async(name,cat,author,price){
+        if(!name || !cat || !author || !price){
+            return null;
+        }else{
+            await db.load(`INSERT INTO books (book_id, book_name, book_cat, book_author, book_price) VALUES (NULL, '${name}', ${cat}, '${author}', ${price}) `);
+            return null;
+        }
+
+    },
     searchByName: async(name) =>{
         let data=await db.load(`SELECT book_id as id, book_name as name, book_author as author, book_price as price, c.cat_name as category FROM books b INNER JOIN categories c on b.book_cat=c.cat_id WHERE MATCH(book_name) Against("+${name}}*" IN BOOLEAN MODE) limit 10 offset 0 `)
         var item;

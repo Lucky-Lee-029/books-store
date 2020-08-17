@@ -16,6 +16,14 @@ router.post("/api/search",async (req,res)=>{
     let data=await book.searchByName(name);
     res.send(data);
 });
+router.post("/api/addbook",async (req,res)=>{
+    let name=req.body.name;
+    let cat=req.body.catId;
+    let author=req.body.author;
+    let price=req.body.price;
+    await book.bookAdd(name,cat,author,price);
+    res.send(null);
+});
 router.post("/api/editbook",async (req,res)=>{
     let id=req.body.bookId;
     let name=req.body.name;
@@ -23,6 +31,11 @@ router.post("/api/editbook",async (req,res)=>{
     let author=req.body.author;
     let price=req.body.price;
     await book.bookEdit(id,name,cat,author,price);
+    res.send(null);
+});
+router.post("/api/delbook",async (req,res)=>{
+    let name=req.body.bookId;
+    let data=await book.bookDelete(id);
     res.send(null);
 });
 router.post("/api/singlebook",async (req,res)=>{
